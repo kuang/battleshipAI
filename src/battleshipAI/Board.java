@@ -82,6 +82,7 @@ public class Board {
 		}
 
 	}
+	//returns coordinate as an array of length 2 of highest probability.
 	private int[] selectAttack(){
 		int[] coord = new int[2];
 		int max = 0;
