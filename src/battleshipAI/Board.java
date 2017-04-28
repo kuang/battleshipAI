@@ -98,6 +98,10 @@ public class Board {
 		return coord;
 		
 	}
+	//updates probabilities of each square
+	private void updateProbs(){
+		
+	}
 
 	public static void main(String[] args) {
 		Board board = new Board();
