@@ -100,13 +100,32 @@ public class Board {
 	}
 	//updates probabilities of each square
 	private void updateProbs(){
+		for(int i = 0; i<16; i++){
+			for(int j = 0; j<16; j++){
+				probs[i][j]=updateCoordProb(i,j);
+			}
+		}
+	}
+	
+	/*
+	 * Probability function. Returns the probability (0-100) that there is a ship in the given tile.
+	 */
+	private int updateCoordProb(int x, int y) {
 		
+		int output = 49-(Math.abs((8-x)*(8-y)));
+		
+		
+		
+		
+		
+		return output;
 	}
 
 	public static void main(String[] args) {
 		Board board = new Board();
 		board.setSampleBoard();
 		board.printBoard();
+//		board.updateProbs();
 		System.out.println(board.selectAttack()[0]+" "+board.selectAttack()[1]);
 	}
 }
