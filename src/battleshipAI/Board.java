@@ -10,7 +10,7 @@ public class Board {
 
 	// 2d array is int[rows][columns]
 	private int[][] values;
-	private int[][] probs;
+	private static int[][] probs;
 	private int[][] hits;
 
 	
@@ -47,11 +47,12 @@ public class Board {
 		gunboatCoords = new int[2][2];
 	}
 
-	public void printBoard() {
-		for (int[] row : values) {
+	public void printBoard(int[][] board) {
+		for (int[] row : board) {
+			System.out.println("");
 			System.out.println("");
 			for (int num : row) {
-				System.out.print(num + " ");
+				System.out.print(num + "    ");
 			}
 		}
 	}
@@ -112,20 +113,20 @@ public class Board {
 	 */
 	private int updateCoordProb(int x, int y) {
 		
-		int output = 49-(Math.abs((8-x)*(8-y)));
+		double output = 1/(Math.abs((7.5-x)*(7.5-y)));
+		output *=100;
 		
 		
 		
 		
-		
-		return output;
+		return (int) output;
 	}
 
 	public static void main(String[] args) {
 		Board board = new Board();
 		board.setSampleBoard();
-		board.printBoard();
-//		board.updateProbs();
+		board.updateProbs();
+		board.printBoard(probs);
 		System.out.println(board.selectAttack()[0]+" "+board.selectAttack()[1]);
 	}
 }
