@@ -1,1 +1,3 @@
-var grid = [][];
+var shipGrid = [][];
+var hits = [][];
+var probs = [][];
