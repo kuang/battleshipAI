@@ -21,8 +21,8 @@ function matrix(rows, cols, defaultValue) {
 }
 
 var shipGrid = matrix(16, 16, 0);
-// var hits = createArray(16, 16);
-// var probs = createArray(16, 16);
+var probs = matrix(16, 16, 0);
+var hits = matrix(16, 16, 0);
 
 var carrier = true;
 var battleship = true;
@@ -33,13 +33,16 @@ var gunboat = true;
 
 //board is a 2d array
 function printBoard(board) {
+    var output = "";
     for (var i = 0; i < board.length; i++) {
-        console.log("");
-        console.log("");
+        // console.log("");
+        // console.log("");
         for (var j = 0; j < board[i].length; j++) {
-            console.log(board[i][j] + "   ")
+            output += board[i][j] + " ";
         }
+        output += "\n";
     }
+    console.log(output);
 }
 
 
