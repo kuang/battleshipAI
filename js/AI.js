@@ -20,7 +20,7 @@ function matrix(rows, cols, defaultValue) {
     return arr;
 }
 
-var shipGrid = matrix(16, 16, "");
+var shipGrid = matrix(16, 16, "+");
 var probs = matrix(16, 16, 0);
 var hits = matrix(16, 16, 0);
 
@@ -46,24 +46,30 @@ function printBoard(board) {
 }
 // creates sample board for testing
 function setSampleBoard() {
-    setPieceVert("C", 5, 1, 2);
-    // setPieceHoriz(battleshipCoords, 12, 9, 12);
+    setPieceVert("C", 4, 0, 2);
+    setPieceHoriz("B", 6, 3, 10);
+    setPieceVert("D", 10, 8, 8);
+    setPieceHoriz("S", 12, 10, 3);
+    setPieceHoriz("G", 11, 10, 13);
 
 }
 
 // precondition: startRow > endRow
+//startRow and endRow are inclusive
 function setPieceVert(letter, startRow, endRow, col) {
-    for (int i = 0; i < startRow - endRow; i++) {
-        values[startRow - i][col] = letter;
+    for (var i = 0; i <= startRow - endRow; i++) {
+        shipGrid[startRow - i][col] = letter;
     }
 
 }
 
 // precondition: startCol > endCol
-function setPieceVert(letter, startCol, endCol, row) {
-    for (int i = 0; i < startCol - endCol; i++) {
-        values[row][startCol - i] = letter;
+//startCol and endCol are inclusive
+function setPieceHoriz(letter, startCol, endCol, row) {
+    for (var i = 0; i <= startCol - endCol; i++) {
+        shipGrid[row][startCol - i] = letter;
     }
 
 }
+setSampleBoard();
 printBoard(shipGrid);
