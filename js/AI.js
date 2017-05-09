@@ -71,5 +71,48 @@ function setPieceHoriz(letter, startCol, endCol, row) {
     }
 
 }
+
+//returns coordinate as an array of length 2 of highest probability.
+function selectAttack() {
+    var coord = [-1, -2];
+    var max = 0;
+    for (var i = 0; i < 16; i++) {
+        for (var j = 0; j < 16; j++) {
+            if (probs[i][j] >= max) {
+                max = probs[i][j];
+                coord[0] = i;
+                coord[1] = j;
+            }
+        }
+    }
+    return coord;
+
+}
+//updates probabilities of each square
+function updateProbs() {
+    for (var i = 0; i < 16; i++) {
+        for (var j = 0; j < 16; j++) {
+            probs[i][j] = updateCoordProb(i, j);
+        }
+    }
+}
+
+/*
+ * Probability function. Returns the probability (0-100) that there is a ship in the given tile.
+ */
+function updateCoordProb(x, y) {
+
+    var output = 1 / (Math.abs((7.5 - x) * (7.5 - y)));
+    output *= 100;
+
+
+
+
+    return output;
+}
+
+
 setSampleBoard();
+updateProbs();
 printBoard(shipGrid);
+console.log(selectAttack());
