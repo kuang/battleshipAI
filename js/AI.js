@@ -92,7 +92,7 @@ function selectAttack() {
 function updateProbs() {
     for (var i = 0; i < 16; i++) {
         for (var j = 0; j < 16; j++) {
-            probs[i][j] = updateCoordProb(i, j);
+            probs[i][j] = updateCoordProb(i + 1, j + 1);
         }
     }
 }
@@ -102,8 +102,8 @@ function updateProbs() {
  */
 function updateCoordProb(x, y) {
 
-    var output = 1 / (Math.abs((7.5 - x) * (7.5 - y)));
-    output *= 100;
+    var output = 3 / 32640 * (Math.pow(x - 8.5, 2) + Math.pow(y - 8.5, 2));
+    // output *= 100;
 
 
 
@@ -116,3 +116,13 @@ setSampleBoard();
 updateProbs();
 printBoard(shipGrid);
 console.log(selectAttack());
+// printBoard(probs);
+var total = 0;
+for (var i = 0; i < 16; i++) {
+    for (var j = 0; j < 16; j++) {
+        total += probs[i][j];
+    }
+}
+console.log(total);
+console.log(probs[15][15]);
+console.log(probs[0][0]);
