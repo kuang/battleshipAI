@@ -19,10 +19,10 @@ function matrix(rows, cols, defaultValue) {
 
     return arr;
 }
-
-var shipGrid = matrix(16, 16, "+");
-var probs = matrix(16, 16, 0);
-var hits = matrix(16, 16, 0);
+var board_len = 10;
+var shipGrid = matrix(board_len, board_len, "+");
+var probs = matrix(board_len, board_len, 0);
+var hits = matrix(board_len, board_len, 0);
 
 var carrier = true; //C
 var battleship = true; //B
@@ -38,7 +38,7 @@ function printBoard(board) {
         // console.log("");
         // console.log("");
         for (var j = 0; j < board[i].length; j++) {
-            output += board[i][j] + " ";
+            output += board[i][j] + "     ";
         }
         output += "\n";
     }
@@ -47,10 +47,10 @@ function printBoard(board) {
 // creates sample board for testing
 function setSampleBoard() {
     setPieceVert("C", 4, 0, 2);
-    setPieceHoriz("B", 6, 3, 10);
-    setPieceVert("D", 10, 8, 8);
-    setPieceHoriz("S", 12, 10, 3);
-    setPieceHoriz("G", 11, 10, 13);
+    setPieceHoriz("B", 6, 3, 8);
+    setPieceVert("D", 4, 2, 6);
+    setPieceHoriz("S", 9, 7, 3);
+    setPieceHoriz("G", 9, 8, 7);
 
 }
 
@@ -76,8 +76,8 @@ function setPieceHoriz(letter, startCol, endCol, row) {
 function selectAttack() {
     var coord = [-1, -2];
     var max = 0;
-    for (var i = 0; i < 16; i++) {
-        for (var j = 0; j < 16; j++) {
+    for (var i = 0; i < board_len; i++) {
+        for (var j = 0; j < board_len; j++) {
             if (probs[i][j] >= max) {
                 max = probs[i][j];
                 coord[0] = i;
@@ -90,8 +90,8 @@ function selectAttack() {
 }
 //updates probabilities of each square
 function updateProbs() {
-    for (var i = 0; i < 16; i++) {
-        for (var j = 0; j < 16; j++) {
+    for (var i = 0; i < board_len; i++) {
+        for (var j = 0; j < board_len; j++) {
             probs[i][j] = updateCoordProb(i + 1, j + 1);
         }
     }
@@ -104,7 +104,7 @@ function updateCoordProb(x, y) {
 
 
     //accounting for x, y coordinate
-    var output = 3 / 32640 * (Math.pow(x - 8.5, 2) + Math.pow(y - 8.5, 2));
+    var output = (Math.pow(x - ((board_len + 1) / 2), 2) + Math.pow(y - ((board_len + 1) / 2), 2));
 
     //account for nearby hits
 
@@ -118,15 +118,15 @@ function updateCoordProb(x, y) {
 
 setSampleBoard();
 updateProbs();
-printBoard(shipGrid);
+printBoard(probs);
 console.log(selectAttack());
 // printBoard(probs);
 var total = 0;
-for (var i = 0; i < 16; i++) {
-    for (var j = 0; j < 16; j++) {
+for (var i = 0; i < board_len; i++) {
+    for (var j = 0; j < board_len; j++) {
         total += probs[i][j];
     }
 }
 console.log(total);
-console.log(probs[15][15]);
 console.log(probs[0][0]);
+console.log(probs[9][9]);
