@@ -1,2 +1,2 @@
 # battleshipAI
-Battleship AI using Bayesian Search Theory.
+Battleship AI using applied Bayesian Search Theory.
