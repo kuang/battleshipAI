@@ -102,8 +102,12 @@ function updateProbs() {
  */
 function updateCoordProb(x, y) {
 
+
+    //accounting for x, y coordinate
     var output = 3 / 32640 * (Math.pow(x - 8.5, 2) + Math.pow(y - 8.5, 2));
-    // output *= 100;
+
+    //account for nearby hits
+
 
 
 
