@@ -115,6 +115,9 @@ function updateCoordProb(x, y) {
     return output;
 }
 
+function checkNeighbors()[
+
+]
 
 setSampleBoard();
 updateProbs();
