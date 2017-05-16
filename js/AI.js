@@ -54,7 +54,7 @@ function printBoard(board) {
 
   var output = "";
   for (var i = 0; i < board.length; i++) {
-    // console.log("");
+    console.log("\n");
     // console.log("");
     for (var j = 0; j < board[i].length; j++) {
       output += board[i][j] +
@@ -141,7 +141,7 @@ function checkNeighbors() {
 
 setSampleBoard();
 updateProbs();
-printBoard(probs);
+printBoard(shipGrid);
 console.log(selectAttack());
 // printBoard(probs);
 var total = 0;
