@@ -31,6 +31,24 @@ var destroyer = true; //D
 var submarine = true; //S
 var gunboat = true; //G
 
+var check_num = 5;
+
+function updateNum() {
+  if (gunboat) {
+    check_num = 2;
+  }
+  if (destroyer || submarine) {
+    check_num = 3;
+  }
+  if (battleship) {
+    check_num = 4;
+  }
+  if (carrier) {
+    check_num = 5;
+  }
+
+}
+
 //board is a 2d array
 function printBoard(board) {
 
@@ -115,7 +133,11 @@ function updateCoordProb(x, y) {
   return output;
 }
 
-function checkNeighbors() {}
+//returns number of previous hits adjacent (to min number)
+function checkNeighbors() {
+
+
+}
 
 setSampleBoard();
 updateProbs();
