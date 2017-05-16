@@ -49,6 +49,34 @@ function updateNum() {
 
 }
 
+function updateBoard() {
+  if (carrier) {
+    if (!shipGrid.contains("C")) {
+      carrier = false;
+    }
+  }
+  if (battleship) {
+    if (!shipGrid.contains("B")) {
+      battleship = false;
+    }
+  }
+  if (destroyer) {
+    if (!shipGrid.contains("D")) {
+      destroyer = false;
+    }
+  }
+  if (submarine) {
+    if (!shipGrid.contains("S")) {
+      submarine = false;
+    }
+  }
+  if (gunboat) {
+    if (!shipGrid.contains("G")) {
+      gunboat = false;
+    }
+  }
+}
+
 //board is a 2d array
 function printBoard(board) {
 
