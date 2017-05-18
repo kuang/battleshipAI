@@ -50,39 +50,46 @@ function updateNum() {
 }
 //scans the board for ships sunk
 function updateVars() {
-  if (carrier) {
-    if (!shipGrid.contains("C")) {
-      carrier = false;
-      console.log("carrier sunk");
+  var tcarrier = false;
+  var tbattleship = false;
+  var tdestroyer = false;
+  var tsubmarine = false;
+  var tgunboat = false;
+  for (var i = 0; i < board_len; i++) {
+    for (var j = 0; j < board_len; j++) {
+      if (carrier && !tcarrier && shipGrid[i][j] == "C") {
+        tcarrier = true;
+      }
+      if (battleship && !tbattleship && shipGrid[i][j] == "B") {
+        tbattleship = true;
+      }
+      if (destroyer && !tdestroyer && shipGrid[i][j] == "D") {
+        tdestroyer = true;
+      }
+      if (submarine && !tsubmarine && shipGrid[i][j] == "S") {
+        tsubmarine = true;
+      }
+      if (gunboat && !tgunboat && shipGrid[i][j] == "G") {
+        tgunboat = true;
+      }
     }
-  }
-  if (battleship) {
-    if (!shipGrid.contains("B")) {
-      battleship = false;
-      console.log("battleship sunk");
 
-    }
   }
-  if (destroyer) {
-    if (!shipGrid.contains("D")) {
-      destroyer = false;
-      console.log("destroyer sunk");
-
-    }
-  }
-  if (submarine) {
-    if (!shipGrid.contains("S")) {
-      submarine = false;
-      console.log("submarine sunk");
-
-    }
-  }
-  if (gunboat) {
-    if (!shipGrid.contains("G")) {
-      gunboat = false;
-      console.log("gunboat sunk");
-
-    }
+  if (carrier && !tcarrier) {
+    carrier = false;
+    console.log("carrier sunk");
+  } else if (battleship && !tbattleship) {
+    battleship = false;
+    console.log("battleship sunk");
+  } else if (destroyer && !tdestroyer) {
+    destroyer = false;
+    console.log("destroyer sunk");
+  } else if (submarine && !tsubmarine) {
+    submarine = false;
+    console.log("submarine sunk");
+  } else if (gunboat && !tgunboat) {
+    gunboat = false;
+    console.log("gunboat sunk");
   }
 }
 //called after ever single attack
@@ -96,7 +103,7 @@ function printBoard(board) {
 
   var output = "";
   for (var i = 0; i < board.length; i++) {
-    console.log("\n");
+    // console.log("\n");
     // console.log("");
     for (var j = 0; j < board[i].length; j++) {
       output += board[i][j] +
@@ -140,11 +147,14 @@ function selectAttack() {
   var max = 0;
   for (var i = 0; i < board_len; i++) {
     for (var j = 0; j < board_len; j++) {
-      if (probs[i][j] >= max) {
-        max = probs[i][j];
-        coord[0] = i;
-        coord[1] = j;
+      if (shipGrid[i][j] !== "X") {
+        if (probs[i][j] >= max) {
+          max = probs[i][j];
+          coord[0] = i;
+          coord[1] = j;
+        }
       }
+
     }
   }
   return coord;
@@ -184,14 +194,21 @@ function checkNeighbors() {
 setSampleBoard();
 updateProbs();
 printBoard(shipGrid);
-console.log(selectAttack());
-// printBoard(probs);
-var total = 0;
-for (var i = 0; i < board_len; i++) {
-  for (var j = 0; j < board_len; j++) {
-    total += probs[i][j];
-  }
+// console.log(selectAttack());
+while (carrier || battleship || destroyer || submarine || gunboat) {
+  var coord = selectAttack();
+  console.log(coord);
+  updateHit(coord[0], coord[1]);
+  updateVars();
+  printBoard(shipGrid);
 }
-console.log(total);
-console.log(probs[0][0]);
-console.log(probs[9][9]);
+// printBoard(probs);
+// var total = 0;
+// for (var i = 0; i < board_len; i++) {
+//   for (var j = 0; j < board_len; j++) {
+//     total += probs[i][j];
+//   }
+// }
+// console.log(total);
+// console.log(probs[0][0]);
+// console.log(probs[9][9]);
