@@ -23,7 +23,7 @@ function matrix(rows, cols, defaultValue) {
 var board_len = 10;
 var shipGrid = matrix(board_len, board_len, "+");
 var probs = matrix(board_len, board_len, 0);
-var hits = matrix(board_len, board_len, 0);
+// var hits = matrix(board_len, board_len, 0);
 
 var carrier = true; //C
 var battleship = true; //B
@@ -85,6 +85,11 @@ function updateVars() {
     }
   }
 }
+//called after ever single attack
+function updateHit(x, y) {
+  shipGrid[x][y] = "X";
+}
+
 
 //board is a 2d array
 function printBoard(board) {
