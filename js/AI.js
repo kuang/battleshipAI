@@ -48,31 +48,40 @@ function updateNum() {
   }
 
 }
-
-function updateBoard() {
+//scans the board for ships sunk
+function updateVars() {
   if (carrier) {
     if (!shipGrid.contains("C")) {
       carrier = false;
+      console.log("carrier sunk");
     }
   }
   if (battleship) {
     if (!shipGrid.contains("B")) {
       battleship = false;
+      console.log("battleship sunk");
+
     }
   }
   if (destroyer) {
     if (!shipGrid.contains("D")) {
       destroyer = false;
+      console.log("destroyer sunk");
+
     }
   }
   if (submarine) {
     if (!shipGrid.contains("S")) {
       submarine = false;
+      console.log("submarine sunk");
+
     }
   }
   if (gunboat) {
     if (!shipGrid.contains("G")) {
       gunboat = false;
+      console.log("gunboat sunk");
+
     }
   }
 }
