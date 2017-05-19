@@ -187,7 +187,7 @@ function updateCoordProb(x, y) {
 
 //returns number of previous hits adjacent (to min number)
 function checkNeighbors() {
-
+  // for
 
 }
 
