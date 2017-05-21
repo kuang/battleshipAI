@@ -31,9 +31,10 @@ var destroyer = true; //D
 var submarine = true; //S
 var gunboat = true; //G
 
-var check_num = 5;
-
+//returns range to consider for possible ships
 function updateNum() {
+  var check_num = 5;
+
   if (gunboat) {
     check_num = 2;
   }
@@ -46,7 +47,7 @@ function updateNum() {
   if (carrier) {
     check_num = 5;
   }
-
+  return check_num;
 }
 //scans the board for ships sunk
 function updateVars() {
@@ -187,7 +188,7 @@ function updateCoordProb(x, y) {
 
 //returns number of previous hits adjacent (to min number)
 function checkNeighbors() {
-  // for
+  var numclose = updateNum();
 
 }
 
