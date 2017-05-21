@@ -188,7 +188,9 @@ function updateCoordProb(x, y) {
 
 //returns number of previous hits adjacent (to min number)
 function checkNeighbors() {
-  var numclose = updateNum();
+  var numclose = updateNum(); //range to consider, 2-5
+
+  //checks in horizontal and vertical directions numclose blocks away
 
 }
 
