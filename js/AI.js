@@ -190,6 +190,8 @@ function updateCoordProb(x, y) {
 function checkNeighbors() {
   var numclose = updateNum(); //range to consider, 2-5
 
+
+  //use numclose
   //checks in horizontal and vertical directions numclose blocks away
 
 }
