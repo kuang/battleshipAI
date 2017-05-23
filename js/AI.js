@@ -192,6 +192,7 @@ function checkNeighbors() {
 
 
   //use numclose
+  //more
   //checks in horizontal and vertical directions numclose blocks away
 
 }
