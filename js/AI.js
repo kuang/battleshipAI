@@ -186,13 +186,15 @@ function updateCoordProb(x, y) {
   return output;
 }
 
-//returns number of previous hits adjacent (to min number)
-function checkNeighbors() {
+//returns weighted number of previous hits adjacent (to min number)
+function checkNeighbors(x, y) {
   var numclose = updateNum(); //range to consider, 2-5
-
+  var output = 0;
+  if (shipGrid[x - numclose][y] == "X") {
+    output += numclose;
+  }
 
   //use numclose
-  //more
   //checks in horizontal and vertical directions numclose blocks away
 
 }
