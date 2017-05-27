@@ -193,7 +193,7 @@ function checkNeighbors(x, y) {
   if (shipGrid[x - numclose][y] == "X") {
     output += numclose;
   }
-
+  return output;
   //use numclose
   //checks in horizontal and vertical directions numclose blocks away
 
