@@ -95,7 +95,12 @@ function updateVars() {
 }
 //called after ever single attack
 function updateHit(x, y) {
-  shipGrid[x][y] = "X";
+  if (shipGrid[x][y] != "+") {
+    shipGrid[x][y] = "X";
+
+  } else {
+    shipGrid[x][y] = "O";
+  }
 }
 
 
@@ -187,6 +192,11 @@ function updateCoordProb(x, y) {
 }
 
 //returns weighted number of previous hits adjacent (to min number)
+/* 
+hit numclose away = numclose points
+hit numclose-1 away = numclose-1 points, etc
+*/
+//
 function checkNeighbors(x, y) {
   var numclose = updateNum(); //range to consider, 2-5
   var output = 0;
