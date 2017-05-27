@@ -199,8 +199,15 @@ hit numclose-1 away = numclose-1 points, etc
 function checkNeighbors(x, y) {
   var numclose = updateNum(); //range to consider, 2-5
   var output = 0;
+  var x_params = left_right_x(numclose, x);
+  var y_params = top_bot_y(numclose, y);
 
-
+  //searchs are inclusive of [0] and [1]
+  for (var i = x_params[0]; i <= x_params[1]; i++) {
+    if (shipGrid[i][y] === "X") {
+      output += x - i;
+    }
+  }
   return output;
   //use numclose
   //checks in horizontal and vertical directions numclose blocks away
@@ -208,11 +215,18 @@ function checkNeighbors(x, y) {
 }
 //returns tuple of starting and ending points, bounded by left/right walls and the maxnum
 function left_right_x(maxnum, x) {
+  maxnum--; //search is inclusive of starting position
   var left = Math.max(0, x - maxnum);
   var right = Math.min(board_len, x + maxnum);
   return [left, right];
 }
-
+//returns tuple of starting and ending points, bounded by top/bottom walls and the maxnum
+function top_bot_y(maxnum, y) {
+  maxnum--; //search is inclusive of starting position
+  var top = Math.max(0, y - maxnum);
+  var bot = Math.min(board_len, y + maxnum);
+  return [top, bot];
+}
 // setSampleBoard();
 // updateProbs();
 // printBoard(shipGrid);
