@@ -23,7 +23,6 @@ function matrix(rows, cols, defaultValue) {
 var board_len = 10;
 var shipGrid = matrix(board_len, board_len, "+");
 var probs = matrix(board_len, board_len, 0);
-// var hits = matrix(board_len, board_len, 0);
 
 var carrier = true; //C
 var battleship = true; //B
@@ -200,33 +199,30 @@ hit numclose-1 away = numclose-1 points, etc
 function checkNeighbors(x, y) {
   var numclose = updateNum(); //range to consider, 2-5
   var output = 0;
-  if (shipGrid[x - numclose][y] == "X") {
-    output += numclose;
-  }
+
+
   return output;
   //use numclose
   //checks in horizontal and vertical directions numclose blocks away
 
 }
-
-setSampleBoard();
-updateProbs();
-printBoard(shipGrid);
-// console.log(selectAttack());
-while (carrier || battleship || destroyer || submarine || gunboat) {
-  var coord = selectAttack();
-  console.log(coord);
-  updateHit(coord[0], coord[1]);
-  updateVars();
-  printBoard(shipGrid);
+//returns tuple of starting and ending points, bounded by left/right walls and the maxnum
+function left_right_x(maxnum, x) {
+  var left = Math.max(0, x - maxnum);
+  var right = Math.min(board_len, x + maxnum);
+  return [left, right];
 }
-// printBoard(probs);
-// var total = 0;
-// for (var i = 0; i < board_len; i++) {
-//   for (var j = 0; j < board_len; j++) {
-//     total += probs[i][j];
-//   }
+
+// setSampleBoard();
+// updateProbs();
+// printBoard(shipGrid);
+// // console.log(selectAttack());
+// while (carrier || battleship || destroyer || submarine || gunboat) {
+//   var coord = selectAttack();
+//   console.log(coord);
+//   updateHit(coord[0], coord[1]);
+//   updateVars();
+//   printBoard(shipGrid);
 // }
-// console.log(total);
-// console.log(probs[0][0]);
-// console.log(probs[9][9]);
+
+console.log(left_right_x(5, 2)[0], left_right_x(5, 2)[1]);
