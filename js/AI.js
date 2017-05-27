@@ -153,7 +153,7 @@ function selectAttack() {
   var max = 0;
   for (var i = 0; i < board_len; i++) {
     for (var j = 0; j < board_len; j++) {
-      if (shipGrid[i][j] !== "X") {
+      if (shipGrid[i][j] !== "X" && shipGrid[i][j] !== "O") {
         if (probs[i][j] >= max) {
           max = probs[i][j];
           coord[0] = i;
