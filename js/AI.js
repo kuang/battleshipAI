@@ -219,6 +219,11 @@ function checkNeighbors(x, y) {
       output += x - i;
     }
   }
+  for (var i = y_params[0]; i <= y_params[1]; i++) {
+    if (shipGrid[x][i] === "X") { //if it is a hit
+      output += y - i;
+    }
+  }
   return output;
   //use numclose
   //checks in horizontal and vertical directions numclose blocks away
@@ -240,8 +245,9 @@ function top_bot_y(maxnum, y) {
 }
 setSampleBoard();
 updateProbs();
-updateHit(5, 6);
+updateHit(4, 6);
 printBoard(shipGrid);
+console.log(checkNeighbors(4, 9));
 // // console.log(selectAttack());
 // while (carrier || battleship || destroyer || submarine || gunboat) {
 //   var coord = selectAttack();
