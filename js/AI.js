@@ -216,12 +216,12 @@ function checkNeighbors(x, y) {
   //searchs are inclusive of [0] and [1]
   for (var i = x_params[0]; i <= x_params[1]; i++) {
     if (shipGrid[i][y] === "X") { //if it is a hit
-      output += x - i;
+      output += 1 / Math.abs(x - i);
     }
   }
   for (var i = y_params[0]; i <= y_params[1]; i++) {
     if (shipGrid[x][i] === "X") { //if it is a hit
-      output += y - i;
+      output += 1 / (Math.abs(y - i)); //less distance = higher output
     }
   }
   return output;
@@ -246,8 +246,10 @@ function top_bot_y(maxnum, y) {
 setSampleBoard();
 updateProbs();
 updateHit(4, 6);
+updateHit(0, 2);
+
 printBoard(shipGrid);
-console.log(checkNeighbors(4, 9));
+console.log(checkNeighbors(4, 2));
 // // console.log(selectAttack());
 // while (carrier || battleship || destroyer || submarine || gunboat) {
 //   var coord = selectAttack();
