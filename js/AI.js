@@ -105,11 +105,22 @@ function updateHit(x, y) {
 
 //board is a 2d array
 function printBoard(board) {
-
   var output = "";
+  var firstline = "      ";
   for (var i = 0; i < board.length; i++) {
-    // console.log("\n");
-    // console.log("");
+    j = i;
+    firstline += j + "     ";
+  }
+  console.log(firstline);
+  for (var i = 0; i < board.length; i++) {
+    k = i;
+    if (k < 10) {
+      output += k + "     ";
+    } else {
+      output += k + "    ";
+
+    }
+
     for (var j = 0; j < board[i].length; j++) {
       output += board[i][j] +
         "     ";
@@ -204,7 +215,7 @@ function checkNeighbors(x, y) {
 
   //searchs are inclusive of [0] and [1]
   for (var i = x_params[0]; i <= x_params[1]; i++) {
-    if (shipGrid[i][y] === "X") {
+    if (shipGrid[i][y] === "X") { //if it is a hit
       output += x - i;
     }
   }
@@ -227,9 +238,10 @@ function top_bot_y(maxnum, y) {
   var bot = Math.min(board_len, y + maxnum);
   return [top, bot];
 }
-// setSampleBoard();
-// updateProbs();
-// printBoard(shipGrid);
+setSampleBoard();
+updateProbs();
+updateHit(5, 6);
+printBoard(shipGrid);
 // // console.log(selectAttack());
 // while (carrier || battleship || destroyer || submarine || gunboat) {
 //   var coord = selectAttack();
@@ -239,4 +251,4 @@ function top_bot_y(maxnum, y) {
 //   printBoard(shipGrid);
 // }
 
-console.log(left_right_x(5, 2)[0], left_right_x(5, 2)[1]);
+// console.log(left_right_x(5, 2)[0], left_right_x(5, 2)[1]);
