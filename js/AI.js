@@ -246,10 +246,14 @@ function top_bot_y(maxnum, y) {
 setSampleBoard();
 updateProbs();
 updateHit(4, 6);
+updateHit(8, 5);
+updateHit(4, 2);
 updateHit(0, 2);
 
 printBoard(shipGrid);
 console.log(checkNeighbors(4, 2));
+console.log(checkNeighbors(4, 5));
+
 // // console.log(selectAttack());
 // while (carrier || battleship || destroyer || submarine || gunboat) {
 //   var coord = selectAttack();
@@ -258,5 +262,6 @@ console.log(checkNeighbors(4, 2));
 //   updateVars();
 //   printBoard(shipGrid);
 // }
+
 
 // console.log(left_right_x(5, 2)[0], left_right_x(5, 2)[1]);
