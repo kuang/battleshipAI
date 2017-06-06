@@ -182,7 +182,7 @@ function updateProbs() {
     for (var j = 0; j < board_len; j++) {
       probs[i][j] = updateCoordProb(i +
         1, j +
-        1);
+        1).toFixed(3);
     }
   }
 }
@@ -191,20 +191,23 @@ function updateProbs() {
 function updateCoordProb(x, y) {
 
   //accounting for x, y coordinate
+
   var output = (Math.pow(x - ((board_len +
       1) / 2), 2) +
     Math.pow(y - ((board_len +
       1) / 2), 2));
-
+  output *= 0.01;
+  // var output = 0;
+  output += checkNeighbors(x - 1, y - 1);
   //account for nearby hits
 
   return output;
 }
 
-//returns weighted number of previous hits adjacent (to min number)
+//returns inverse weighted number of previous hits adjacent (to min number)
 /* 
-hit numclose away = numclose points
-hit numclose-1 away = numclose-1 points, etc
+hit numclose away = 1/numclose points
+hit numclose-1 away = 1/numclose-1 points, etc
 */
 //
 function checkNeighbors(x, y) {
@@ -215,12 +218,12 @@ function checkNeighbors(x, y) {
 
   //searchs are inclusive of [0] and [1]
   for (var i = x_params[0]; i <= x_params[1]; i++) {
-    if (shipGrid[i][y] === "X") { //if it is a hit
+    if (shipGrid[i][y] === "X" && i != x) { //if it is a hit
       output += 1 / Math.abs(x - i);
     }
   }
   for (var i = y_params[0]; i <= y_params[1]; i++) {
-    if (shipGrid[x][i] === "X") { //if it is a hit
+    if (shipGrid[x][i] === "X" && i != y) { //if it is a hit
       output += 1 / (Math.abs(y - i)); //less distance = higher output
     }
   }
@@ -233,35 +236,38 @@ function checkNeighbors(x, y) {
 function left_right_x(maxnum, x) {
   maxnum--; //search is inclusive of starting position
   var left = Math.max(0, x - maxnum);
-  var right = Math.min(board_len, x + maxnum);
+  var right = Math.min(board_len - 1, x + maxnum);
   return [left, right];
 }
 //returns tuple of starting and ending points, bounded by top/bottom walls and the maxnum
 function top_bot_y(maxnum, y) {
   maxnum--; //search is inclusive of starting position
   var top = Math.max(0, y - maxnum);
-  var bot = Math.min(board_len, y + maxnum);
+  var bot = Math.min(board_len - 1, y + maxnum);
   return [top, bot];
 }
 setSampleBoard();
 updateProbs();
-updateHit(4, 6);
-updateHit(8, 5);
-updateHit(4, 2);
-updateHit(0, 2);
+// updateHit(4, 6);
+// updateHit(8, 5);
+// updateHit(4, 2);
+// updateHit(0, 2);
+// updateHit(7, 9);
 
-printBoard(shipGrid);
-console.log(checkNeighbors(4, 2));
-console.log(checkNeighbors(4, 5));
+// printBoard(shipGrid);
+// console.log(checkNeighbors(9, 9));
+// console.log(checkNeighbors(4, 5));
 
-// // console.log(selectAttack());
-// while (carrier || battleship || destroyer || submarine || gunboat) {
-//   var coord = selectAttack();
-//   console.log(coord);
-//   updateHit(coord[0], coord[1]);
-//   updateVars();
-//   printBoard(shipGrid);
-// }
+// console.log(selectAttack());
+while (carrier || battleship || destroyer || submarine || gunboat) {
+  var coord = selectAttack();
+  console.log(coord);
+  updateHit(coord[0], coord[1]);
+  updateVars();
+  updateProbs();
+  printBoard(shipGrid);
+  printBoard(probs);
+}
 
 
 // console.log(left_right_x(5, 2)[0], left_right_x(5, 2)[1]);
