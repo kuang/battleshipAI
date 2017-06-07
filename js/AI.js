@@ -49,6 +49,7 @@ function updateNum() {
   return check_num;
 }
 //scans the board for ships sunk
+//if a ship is sunk, returns true, otherwise false
 function updateVars() {
   var tcarrier = false;
   var tbattleship = false;
@@ -78,19 +79,25 @@ function updateVars() {
   if (carrier && !tcarrier) {
     carrier = false;
     console.log("carrier sunk");
+    return true;
   } else if (battleship && !tbattleship) {
     battleship = false;
     console.log("battleship sunk");
+    return true;
   } else if (destroyer && !tdestroyer) {
     destroyer = false;
     console.log("destroyer sunk");
+    return true;
   } else if (submarine && !tsubmarine) {
     submarine = false;
     console.log("submarine sunk");
+    return true;
   } else if (gunboat && !tgunboat) {
     gunboat = false;
     console.log("gunboat sunk");
+    return true;
   }
+  return false;
 }
 //called after ever single attack
 function updateHit(x, y) {
@@ -109,7 +116,11 @@ function printBoard(board) {
   var firstline = "      ";
   for (var i = 0; i < board.length; i++) {
     j = i;
-    firstline += j + "     ";
+    if (board == probs) {
+      firstline += j.toFixed(3) + "     ";
+    } else {
+      firstline += j + "     ";
+    }
   }
   console.log(firstline);
   for (var i = 0; i < board.length; i++) {
@@ -263,7 +274,10 @@ while (carrier || battleship || destroyer || submarine || gunboat) {
   var coord = selectAttack();
   console.log(coord);
   updateHit(coord[0], coord[1]);
-  updateVars();
+  if (updateVars()) {
+
+
+  }
   updateProbs();
   printBoard(shipGrid);
   printBoard(probs);
