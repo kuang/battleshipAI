@@ -273,13 +273,17 @@ function callback(a) {
   updateHit(coord[0], coord[1]);
   updateVars();
   updateProbs();
-  // printBoard(shipGrid);
   updateUI(shipGrid);
 }
-while (carrier || battleship || destroyer || submarine || gunboat) {
-  setTimeout(function() {
+// while (carrier || battleship || destroyer || submarine || gunboat) {
+// setTimeout(function() {
+//   callback(shipGrid);
+// }, 1000);
+// callback(shipGrid);
+// }
+setInterval(function() {
+  if (carrier || battleship || destroyer || submarine || gunboat) {
     callback(shipGrid);
-  }, 1000); // printBoard(shipGrid);
-  // printBoard(probs);
-}
+  }
+}, 500);
 // console.log(left_right_x(5, 2)[0], left_right_x(5, 2)[1]);
