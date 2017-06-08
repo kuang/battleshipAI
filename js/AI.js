@@ -1,10 +1,8 @@
 function matrix(rows, cols, defaultValue) {
-
   var arr = [];
 
   // Creates all lines:
   for (var i = 0; i < rows; i++) {
-
     // Creates an empty line
     arr.push([]);
 
@@ -18,7 +16,6 @@ function matrix(rows, cols, defaultValue) {
   }
 
   return arr;
-
 }
 var board_len = 10;
 var shipGrid = matrix(board_len, board_len, "+");
@@ -74,7 +71,6 @@ function updateVars() {
         tgunboat = true;
       }
     }
-
   }
   if (carrier && !tcarrier) {
     carrier = false;
@@ -103,12 +99,10 @@ function updateVars() {
 function updateHit(x, y) {
   if (shipGrid[x][y] != "+") {
     shipGrid[x][y] = "X";
-
   } else {
     shipGrid[x][y] = "O";
   }
 }
-
 
 //board is a 2d array
 function printBoard(board) {
@@ -129,17 +123,27 @@ function printBoard(board) {
       output += k + "     ";
     } else {
       output += k + "    ";
-
     }
 
     for (var j = 0; j < board[i].length; j++) {
-      output += board[i][j] +
-        "     ";
+      output += board[i][j] + "     ";
     }
     output += "\n";
   }
   console.log(output);
 }
+
+function updateUI(board) {
+  var table = document.getElementById("grid");
+  var r = 0;
+  while ((row = table.rows[r++])) {
+    var c = 0;
+    while ((cell = row.cells[c++])) {
+      cell.innerHTML = board[r - 1][c - 1];
+    }
+  }
+}
+
 // creates sample board for testing
 function setSampleBoard() {
   setPieceVert("C", 4, 0, 2);
@@ -147,7 +151,6 @@ function setSampleBoard() {
   setPieceVert("D", 4, 2, 6);
   setPieceHoriz("S", 9, 7, 3);
   setPieceHoriz("G", 9, 8, 7);
-
 }
 
 // precondition: startRow > endRow
@@ -156,7 +159,6 @@ function setPieceVert(letter, startRow, endRow, col) {
   for (var i = 0; i <= startRow - endRow; i++) {
     shipGrid[startRow - i][col] = letter;
   }
-
 }
 
 // precondition: startCol > endCol
@@ -165,7 +167,6 @@ function setPieceHoriz(letter, startCol, endCol, row) {
   for (var i = 0; i <= startCol - endCol; i++) {
     shipGrid[row][startCol - i] = letter;
   }
-
 }
 
 //returns coordinate as an array of length 2 of highest probability.
@@ -181,32 +182,25 @@ function selectAttack() {
           coord[1] = j;
         }
       }
-
     }
   }
   return coord;
-
 }
 //updates probabilities of each square
 function updateProbs() {
   for (var i = 0; i < board_len; i++) {
     for (var j = 0; j < board_len; j++) {
-      probs[i][j] = updateCoordProb(i +
-        1, j +
-        1).toFixed(3);
+      probs[i][j] = updateCoordProb(i + 1, j + 1).toFixed(3);
     }
   }
 }
 
 /* Probability function. Returns the probability (0-100) that there is a ship in the given tile. */
 function updateCoordProb(x, y) {
-
   //accounting for x, y coordinate
 
-  var output = (Math.pow(x - ((board_len +
-      1) / 2), 2) +
-    Math.pow(y - ((board_len +
-      1) / 2), 2));
+  var output =
+    Math.pow(x - (board_len + 1) / 2, 2) + Math.pow(y - (board_len + 1) / 2, 2);
   output *= 0.01;
   // var output = 0;
   output += checkNeighbors(x - 1, y - 1);
@@ -216,7 +210,7 @@ function updateCoordProb(x, y) {
 }
 
 //returns inverse weighted number of previous hits adjacent (to min number)
-/* 
+/*
 hit numclose away = 1/numclose points
 hit numclose-1 away = 1/numclose-1 points, etc
 */
@@ -229,19 +223,20 @@ function checkNeighbors(x, y) {
 
   //searchs are inclusive of [0] and [1]
   for (var i = x_params[0]; i <= x_params[1]; i++) {
-    if (shipGrid[i][y] === "X" && i != x) { //if it is a hit
+    if (shipGrid[i][y] === "X" && i != x) {
+      //if it is a hit
       output += 1 / Math.abs(x - i);
     }
   }
   for (var i = y_params[0]; i <= y_params[1]; i++) {
-    if (shipGrid[x][i] === "X" && i != y) { //if it is a hit
-      output += 1 / (Math.abs(y - i)); //less distance = higher output
+    if (shipGrid[x][i] === "X" && i != y) {
+      //if it is a hit
+      output += 1 / Math.abs(y - i); //less distance = higher output
     }
   }
   return output;
   //use numclose
   //checks in horizontal and vertical directions numclose blocks away
-
 }
 //returns tuple of starting and ending points, bounded by left/right walls and the maxnum
 function left_right_x(maxnum, x) {
@@ -257,6 +252,7 @@ function top_bot_y(maxnum, y) {
   var bot = Math.min(board_len - 1, y + maxnum);
   return [top, bot];
 }
+
 setSampleBoard();
 updateProbs();
 // updateHit(4, 6);
@@ -270,18 +266,20 @@ updateProbs();
 // console.log(checkNeighbors(4, 5));
 
 // console.log(selectAttack());
-while (carrier || battleship || destroyer || submarine || gunboat) {
+
+function callback(a) {
   var coord = selectAttack();
   console.log(coord);
   updateHit(coord[0], coord[1]);
-  if (updateVars()) {
-
-
-  }
+  updateVars();
   updateProbs();
-  printBoard(shipGrid);
-  printBoard(probs);
+  // printBoard(shipGrid);
+  updateUI(shipGrid);
 }
-
-
+while (carrier || battleship || destroyer || submarine || gunboat) {
+  setTimeout(function() {
+    callback(shipGrid);
+  }, 1000); // printBoard(shipGrid);
+  // printBoard(probs);
+}
 // console.log(left_right_x(5, 2)[0], left_right_x(5, 2)[1]);
