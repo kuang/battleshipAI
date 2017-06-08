@@ -281,9 +281,11 @@ function callback(a) {
 // }, 1000);
 // callback(shipGrid);
 // }
-setInterval(function() {
+var id = setInterval(function() {
   if (carrier || battleship || destroyer || submarine || gunboat) {
     callback(shipGrid);
+  } else {
+    clearInterval(id);
   }
 }, 500);
 // console.log(left_right_x(5, 2)[0], left_right_x(5, 2)[1]);
