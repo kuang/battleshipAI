@@ -139,7 +139,11 @@ function updateUI(board) {
   while ((row = table.rows[r++])) {
     var c = 0;
     while ((cell = row.cells[c++])) {
-      cell.innerHTML = board[r - 1][c - 1];
+      if (board[r - 1][c - 1] === "+") {
+        cell.innerHTML = " ";
+      } else {
+        cell.innerHTML = board[r - 1][c - 1];
+      }
     }
   }
 }
@@ -198,10 +202,14 @@ function updateProbs() {
 /* Probability function. Returns the probability (0-100) that there is a ship in the given tile. */
 function updateCoordProb(x, y) {
   //accounting for x, y coordinate
-
-  var output =
-    Math.pow(x - (board_len + 1) / 2, 2) + Math.pow(y - (board_len + 1) / 2, 2);
-  output *= 0.01;
+  var output = 0;
+  //if both x and y are even, increase probability- checkerboard grid is goal
+  if (x % 2 == 0 && y % 2 == 0) {
+    output += 0.5;
+  }
+  // var output =
+  //   Math.pow(x - (board_len + 1) / 2, 2) + Math.pow(y - (board_len + 1) / 2, 2);
+  // output *= 0.01;
   // var output = 0;
   output += checkNeighbors(x - 1, y - 1);
   //account for nearby hits
@@ -209,70 +217,84 @@ function updateCoordProb(x, y) {
   return output;
 }
 
-/* returns true if only one possible sunk ship configuration is possible, false otherwise.
+/* returns coordinates of unique sunk ship if only one possible sunk ship configuration is possible, false otherwise.
 * param: x,y coordinates, length of sunk ship
 */
 function findUniqueSunkShip(x, y, search_length) {
   var counter = 0; //number of possible configurations. must == 1 to return true.
+  var output = [];
   var h_domain = rangeFinder(search_length, x);
   var y_range = rangeFinder(search_length, y);
   console.log(h_domain);
   if (x - h_domain[0] + 1 === search_length) {
     console.log("possible above");
     //if ship existance is possible
-    var num_hits = 0;
+    var num_hits = [];
     for (var i = h_domain[0]; i <= x; i++) {
       if (shipGrid[i][y] == "X") {
-        num_hits++;
+        num_hits.push([i, y]);
       }
     }
-    if (num_hits == search_length) {
+    if (num_hits.length == search_length) {
       counter++;
+      output.push(num_hits);
     }
   }
   if (h_domain[1] - x + 1 === search_length) {
     console.log("possible below");
     //if ship existance is possible
-    var num_hits = 0;
+    var num_hits = [];
     for (var i = x; i <= h_domain[1]; i++) {
       if (shipGrid[i][y] == "X") {
-        num_hits++;
+        num_hits.push([i, y]);
       }
     }
     if (num_hits == search_length) {
+      if (counter > 0) {
+        return [];
+      }
       counter++;
+      output.push(num_hits);
     }
   }
   if (y - y_range[0] + 1 === search_length) {
     console.log("possible left");
     //if ship existance is possible
-    var num_hits = 0;
+    var num_hits = [];
     for (var i = y_range[0]; i <= y; i++) {
       if (shipGrid[x][i] == "X") {
-        num_hits++;
+        num_hits.push([x, i]);
       }
     }
     if (num_hits == search_length) {
+      if (counter > 0) {
+        return [];
+      }
       counter++;
+      output.push(num_hits);
     }
   }
   if (y_range[1] - y + 1 === search_length) {
     console.log("possible right");
     //if ship existance is possible
-    var num_hits = 0;
+    var num_hits = [];
     for (var i = y; i <= y_range[1]; i++) {
       if (shipGrid[x][i] == "X") {
-        num_hits++;
+        num_hits.push([x, i]);
       }
     }
     if (num_hits == search_length) {
+      if (counter > 0) {
+        return [];
+      }
       counter++;
+      output.push(num_hits);
     }
   }
   if (counter != 1) {
-    return false;
+    return output[0];
   }
-  return true;
+  return [];
 }
 
 //returns inverse weighted number of previous hits adjacent (to min number)
@@ -312,26 +334,27 @@ function rangeFinder(maxnum, x) {
 }
 
 setSampleBoard();
-setPieceVert("C", 8, 4, 2);
+// setPieceVert("C", 8, 4, 2);
 
 updateProbs();
-updateHit(4, 6);
-updateHit(8, 3);
-updateHit(8, 4);
-updateHit(8, 5);
-updateHit(8, 6);
-updateHit(4, 2);
-updateHit(3, 2);
-updateHit(2, 2);
-updateHit(1, 2);
-updateHit(5, 2);
-updateHit(6, 2);
-updateHit(7, 2);
-updateHit(0, 2);
-
-updateHit(7, 9);
-console.log(findUniqueSunkShip(4, 2, 5));
-printBoard(shipGrid);
+// updateHit(4, 6);
+// updateHit(8, 3);
+// updateHit(8, 4);
+// updateHit(8, 5);
+// updateHit(8, 6);
+// updateHit(4, 2);
+// updateHit(3, 2);
+// updateHit(2, 2);
+// updateHit(1, 2);
+// updateHit(5, 2);
+// updateHit(6, 2);
+// updateHit(7, 2);
+// updateHit(0, 2);
+//
+// updateHit(7, 9);
+// console.log(findUniqueSunkShip(4, 2, 5));
+// printBoard(shipGrid);
+// updateUI(shipGrid);
 // console.log(checkNeighbors(9, 9));
 // console.log(checkNeighbors(4, 5));
 
@@ -339,11 +362,16 @@ printBoard(shipGrid);
 
 function callback(a) {
   var coord = selectAttack();
-  console.log(coord);
+  // console.log(coord);
   updateHit(coord[0], coord[1]);
   var temp = updateVars();
   if (temp != -1) {
+    // var sunk_coords = findUniqueSunkShip(coord[0], coord[1], temp);
+    // if (sunk_coords.length != 0) {
+    //   console.log(sunk_coords);
+    // }
   }
+
   updateProbs();
   updateUI(shipGrid);
 }
@@ -354,4 +382,4 @@ var id = setInterval(function() {
   } else {
     clearInterval(id);
   }
-}, 500);
+}, 200);
