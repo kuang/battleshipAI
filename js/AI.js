@@ -218,8 +218,8 @@ function updateCoordProb(x, y) {
 }
 
 /* returns coordinates of unique sunk ship if only one possible sunk ship configuration is possible, false otherwise.
-* param: x,y coordinates, length of sunk ship
-*/
+ * param: x,y coordinates, length of sunk ship
+ */
 function findUniqueSunkShip(x, y, search_length) {
   var counter = 0; //number of possible configurations. must == 1 to return true.
   var output = [];
@@ -249,7 +249,9 @@ function findUniqueSunkShip(x, y, search_length) {
         num_hits.push([i, y]);
       }
     }
-    if (num_hits == search_length) {
+    console.log("second param, counter is " + counter);
+    console.log("num_hits is " + num_hits);
+    if (num_hits.length == search_length) {
       if (counter > 0) {
         return [];
       }
@@ -266,7 +268,7 @@ function findUniqueSunkShip(x, y, search_length) {
         num_hits.push([x, i]);
       }
     }
-    if (num_hits == search_length) {
+    if (num_hits.length == search_length) {
       if (counter > 0) {
         return [];
       }
@@ -283,7 +285,7 @@ function findUniqueSunkShip(x, y, search_length) {
         num_hits.push([x, i]);
       }
     }
-    if (num_hits == search_length) {
+    if (num_hits.length == search_length) {
       if (counter > 0) {
         return [];
       }
@@ -291,8 +293,9 @@ function findUniqueSunkShip(x, y, search_length) {
       output.push(num_hits);
     }
   }
-  if (counter != 1) {
-    return output[0];
+  console.log(counter);
+  if (counter === 1) {
+    return output;
   }
   return [];
 }
@@ -365,21 +368,23 @@ function callback(a) {
   // console.log(coord);
   updateHit(coord[0], coord[1]);
   var temp = updateVars();
-  if (temp != -1) {
-    // var sunk_coords = findUniqueSunkShip(coord[0], coord[1], temp);
-    // if (sunk_coords.length != 0) {
-    //   console.log(sunk_coords);
-    // }
+  if (temp != -1) { //updateVars() returns the length of sunk ship if one is sunk, -1 if none are sunk
+    var sunk_coords = findUniqueSunkShip(coord[0], coord[1], temp);
+    if (sunk_coords.length != 0) { //findUniqueSunkShip returns list of coordinates of ship if only unique one exists, empty list otherwise
+      console.log("sunk ship coords of length" + temp + " are " + sunk_coords);
+    }
   }
 
   updateProbs();
   updateUI(shipGrid);
+  // printBoard(shipGrid);
 }
 
-var id = setInterval(function() {
+var id = setInterval(function () {
   if (carrier || battleship || destroyer || submarine || gunboat) {
     callback(shipGrid);
   } else {
     clearInterval(id);
+    // console.log(findUniqueSunkShip(3, 6, 2));
   }
-}, 200);
+}, 100);
