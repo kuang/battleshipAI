@@ -141,6 +141,8 @@ function updateUI(board) {
     while ((cell = row.cells[c++])) {
       if (board[r - 1][c - 1] === "+") {
         cell.innerHTML = " ";
+      } else if (board[r - 1][c - 1] === "I") {
+        cell.innerHTML = "X";
       } else {
         cell.innerHTML = board[r - 1][c - 1];
       }
@@ -179,7 +181,7 @@ function selectAttack() {
   var max = 0;
   for (var i = 0; i < board_len; i++) {
     for (var j = 0; j < board_len; j++) {
-      if (shipGrid[i][j] !== "X" && shipGrid[i][j] !== "O") {
+      if (shipGrid[i][j] !== "X" && shipGrid[i][j] !== "O" && shipGrid[i][j] !== "I") {
         if (probs[i][j] >= max) {
           max = probs[i][j];
           coord[0] = i;
@@ -205,11 +207,11 @@ function updateCoordProb(x, y) {
   var output = 0;
   //if both x and y are even, increase probability- checkerboard grid is goal
   if (x % 2 == 0 && y % 2 == 0) {
-    output += 0.5;
+    output += 500;
   }
-  // var output =
-  //   Math.pow(x - (board_len + 1) / 2, 2) + Math.pow(y - (board_len + 1) / 2, 2);
-  // output *= 0.01;
+  output +=
+    Math.pow(x - (board_len + 1) / 2, 2) + Math.pow(y - (board_len + 1) / 2, 2);
+  output *= 0.01;
   // var output = 0;
   output += checkNeighbors(x - 1, y - 1);
   //account for nearby hits
@@ -295,11 +297,22 @@ function findUniqueSunkShip(x, y, search_length) {
   }
   console.log(counter);
   if (counter === 1) {
-    return output;
+    return output[0];
   }
   return [];
 }
 
+/*
+ * Given a list of coordinates, turn those coordinates from "X" to "I" (for ignore) on shipGrid.
+ */
+function devalueSunkShip(coords) {
+  console.log("coords is " + coords);
+
+  for (var i = 0; i < coords.length; i++) {
+    console.log(coords[i][0]);
+    shipGrid[coords[i][0]][coords[i][1]] = "I";
+  }
+}
 //returns inverse weighted number of previous hits adjacent (to min number)
 /*
 hit numclose away = 1/numclose points
@@ -371,7 +384,8 @@ function callback(a) {
   if (temp != -1) { //updateVars() returns the length of sunk ship if one is sunk, -1 if none are sunk
     var sunk_coords = findUniqueSunkShip(coord[0], coord[1], temp);
     if (sunk_coords.length != 0) { //findUniqueSunkShip returns list of coordinates of ship if only unique one exists, empty list otherwise
-      console.log("sunk ship coords of length" + temp + " are " + sunk_coords);
+      // console.log("sunk ship coords of length" + temp + " are " + sunk_coords);
+      devalueSunkShip(sunk_coords);
     }
   }
 
