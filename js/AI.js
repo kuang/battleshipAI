@@ -220,11 +220,9 @@ function updateCoordProb(x, y) {
         output += 5;
       }
     }
-    // if ((x + 2) % 2 == 0 || (y + 2) % 2 == 0) {
-    //   output += 5;
-    // }
-    // output +=
-    //   (Math.pow(x - (board_len + 1) / 2, 2) + Math.pow(y - (board_len + 1) / 2, 2)) * 0.01;
+
+    output +=
+      (Math.pow(x - (board_len + 1) / 2, 2) + Math.pow(y - (board_len + 1) / 2, 2)) * 0.01;
   }
   return output;
 }
