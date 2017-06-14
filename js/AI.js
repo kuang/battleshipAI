@@ -210,11 +210,21 @@ function updateCoordProb(x, y) {
     return output + 10;
   } else {
     //if both x and y are even, increase probability- checkerboard grid is goal
-    if ((x + 3) % 2 == 0 && (y + 3) % 2 == 0) {
-      output += 5;
+    if ((x + 2) % 2 == 0) {
+      if ((y + 2) % 2 == 0) {
+        output += 5;
+      }
     }
-    output +=
-      (Math.pow(x - (board_len + 1) / 2, 2) + Math.pow(y - (board_len + 1) / 2, 2)) * 0.01;
+    if ((x + 2) % 2 != 0) {
+      if ((y + 2) % 2 != 0) {
+        output += 5;
+      }
+    }
+    // if ((x + 2) % 2 == 0 || (y + 2) % 2 == 0) {
+    //   output += 5;
+    // }
+    // output +=
+    //   (Math.pow(x - (board_len + 1) / 2, 2) + Math.pow(y - (board_len + 1) / 2, 2)) * 0.01;
   }
   return output;
 }
