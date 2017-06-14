@@ -196,7 +196,7 @@ function selectAttack() {
 function updateProbs() {
   for (var i = 0; i < board_len; i++) {
     for (var j = 0; j < board_len; j++) {
-      probs[i][j] = updateCoordProb(i + 1, j + 1).toFixed(3);
+      probs[i][j] = updateCoordProb(i + 1, j + 1);
     }
   }
 }
@@ -204,18 +204,18 @@ function updateProbs() {
 /* Probability function. Returns the probability (0-100) that there is a ship in the given tile. */
 function updateCoordProb(x, y) {
   //accounting for x, y coordinate
-  var output = 0;
-  //if both x and y are even, increase probability- checkerboard grid is goal
-  if (x % 2 == 0 && y % 2 == 0) {
-    output += 500;
+  var neighboring = checkNeighbors(x - 1, y - 1);
+  var output = neighboring[0];
+  if (neighboring[1] == true) {
+    return output + 10;
+  } else {
+    //if both x and y are even, increase probability- checkerboard grid is goal
+    if ((x + 3) % 2 == 0 && (y + 3) % 2 == 0) {
+      output += 5;
+    }
+    output +=
+      (Math.pow(x - (board_len + 1) / 2, 2) + Math.pow(y - (board_len + 1) / 2, 2)) * 0.01;
   }
-  output +=
-    Math.pow(x - (board_len + 1) / 2, 2) + Math.pow(y - (board_len + 1) / 2, 2);
-  output *= 0.01;
-  // var output = 0;
-  output += checkNeighbors(x - 1, y - 1);
-  //account for nearby hits
-
   return output;
 }
 
@@ -321,6 +321,7 @@ hit numclose-1 away = 1/numclose-1 points, etc
 function checkNeighbors(x, y) {
   var numclose = updateNum(); //range to consider, 2-5
   var output = 0;
+  var isImmediateNeighbor = false;
   var x_params = rangeFinder(numclose, x);
   var y_params = rangeFinder(numclose, y);
 
@@ -328,16 +329,22 @@ function checkNeighbors(x, y) {
   for (var i = x_params[0]; i <= x_params[1]; i++) {
     if (shipGrid[i][y] === "X" && i != x) {
       //if it is a hit
+      if (Math.abs(x - i) == 1) {
+        isImmediateNeighbor = true;
+      }
       output += 1 / Math.abs(x - i);
     }
   }
   for (var i = y_params[0]; i <= y_params[1]; i++) {
     if (shipGrid[x][i] === "X" && i != y) {
       //if it is a hit
+      if (Math.abs(y - i) == 1) {
+        isImmediateNeighbor = true;
+      }
       output += 1 / Math.abs(y - i); //less distance = higher output
     }
   }
-  return output;
+  return [output, isImmediateNeighbor];
   //use numclose
   //checks in horizontal and vertical directions numclose blocks away
 }
@@ -378,7 +385,9 @@ updateProbs();
 
 function callback(a) {
   var coord = selectAttack();
-  // console.log(coord);
+  console.log(coord);
+  console.log(probs[7][8]);
+
   updateHit(coord[0], coord[1]);
   var temp = updateVars();
   if (temp != -1) { //updateVars() returns the length of sunk ship if one is sunk, -1 if none are sunk
@@ -389,9 +398,10 @@ function callback(a) {
     }
   }
 
-  updateProbs();
   updateUI(shipGrid);
+  updateProbs();
   // printBoard(shipGrid);
+  // printBoard(probs);
 }
 
 var id = setInterval(function () {
@@ -401,4 +411,4 @@ var id = setInterval(function () {
     clearInterval(id);
     // console.log(findUniqueSunkShip(3, 6, 2));
   }
-}, 100);
+}, 200);
