@@ -1,3 +1,4 @@
+//initializes 2d array.
 function matrix(rows, cols, defaultValue) {
   var arr = [];
 
@@ -46,7 +47,7 @@ function updateNum() {
   return check_num;
 }
 //scans the board for ships sunk
-//if a ship is sunk, returns true, otherwise false
+//if a ship is sunk, returns its length, otherwise -1
 function updateVars() {
   var tcarrier = false;
   var tbattleship = false;
@@ -74,28 +75,28 @@ function updateVars() {
   }
   if (carrier && !tcarrier) {
     carrier = false;
-    console.log("carrier sunk");
+    // console.log("carrier sunk");
     return 5;
   } else if (battleship && !tbattleship) {
     battleship = false;
-    console.log("battleship sunk");
+    // console.log("battleship sunk");
     return 4;
   } else if (destroyer && !tdestroyer) {
     destroyer = false;
-    console.log("destroyer sunk");
+    // console.log("destroyer sunk");
     return 3;
   } else if (submarine && !tsubmarine) {
     submarine = false;
-    console.log("submarine sunk");
+    // console.log("submarine sunk");
     return 3;
   } else if (gunboat && !tgunboat) {
     gunboat = false;
-    console.log("gunboat sunk");
+    // console.log("gunboat sunk");
     return 2;
   }
   return -1;
 }
-//called after ever single attack
+//marks shipGrid[x][y] as a hit or miss
 function updateHit(x, y) {
   if (shipGrid[x][y] != "+") {
     shipGrid[x][y] = "X";
@@ -104,7 +105,7 @@ function updateHit(x, y) {
   }
 }
 
-//board is a 2d array
+//prints board to console
 function printBoard(board) {
   var output = "";
   var firstline = "      ";
@@ -133,6 +134,7 @@ function printBoard(board) {
   console.log(output);
 }
 
+//updates HTML UI
 function updateUI(board) {
   var table = document.getElementById("grid");
   var r = 0;
@@ -321,7 +323,7 @@ function devalueSunkShip(coords) {
     shipGrid[coords[i][0]][coords[i][1]] = "I";
   }
 }
-//returns inverse weighted number of previous hits adjacent (to min number)
+//returns tuple of [inverse weighted number of previous hits adjacent (to min number), whether or not [x][y] is adjacent to an open hit]
 /*
 hit numclose away = 1/numclose points
 hit numclose-1 away = 1/numclose-1 points, etc
