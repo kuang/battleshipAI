@@ -30,7 +30,6 @@
 <!--ugly hardcoded HTML, I need react.js in my life-->
 
 <body>
-    <script src="js/AI.js"></script>
 
     <div class="col-md-6">
         <table id="grid">
@@ -155,15 +154,16 @@
                 <td id="99" contenteditable='true' onclick="dotheneedful(this)" tabindex="-1"></td>
             </tr>
         </table>
-        <button onclick="startGame()">Start Game</button>
         <button onclick="startRandGame()">Random Board</button>
+        <button onclick="startGame()">Start Game</button>
     </div>
     <div id="right" class="col-md-6">
         <div class="col-md-8">
             <h1>Instructions:</h1>
             <p>You have five ships: a Carrier (C), of length 5, a Battleship (B), of length 4, a Destroyer (D), of length 3,
                 a Submarine (S), of length 3, and a Gunboat (G), of length 2. Place all five ships within the grid denoted
-                by the uppercase first letter of each ship name. No ships may overlap. Ships <b>are</b> allowed to be touching.
+                by typing the uppercase first letter of each ship name. No ships may overlap. Ships <b>are</b> allowed to
+                be touching.
 
             </p>
             <p>
@@ -176,6 +176,8 @@
 
 
     <script src="js/arrow_nav.js"></script>
+    <script src="js/AI.js"></script>
+
 
 
 </body>
