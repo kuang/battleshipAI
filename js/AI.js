@@ -435,8 +435,7 @@ function callback(a) {
 }
 
 function startGame() {
-  // setSampleBoard();
-
+  deSelect();
   setGrid();
   updateProbs();
   var id = setInterval(function () {
@@ -446,4 +445,18 @@ function startGame() {
       clearInterval(id);
     }
   }, 200);
+}
+
+function startRandGame() {
+  deSelect();
+  setSampleBoard();
+  updateProbs();
+  var id = setInterval(function () {
+    if (carrier || battleship || destroyer || submarine || gunboat) {
+      callback(shipGrid);
+    } else {
+      clearInterval(id);
+    }
+  }, 200);
+
 }

@@ -27,130 +27,153 @@
 
 </head>
 
+<!--ugly hardcoded HTML, I need react.js in my life-->
+
 <body>
-    <table id="grid">
-        <tr>
-            <td id="00" contenteditable='true'></td>
-            <td id="01" contenteditable='true'></td>
-            <td id="02" contenteditable='true'></td>
-            <td id="03" contenteditable='true'></td>
-            <td id="04" contenteditable='true'></td>
-            <td id="05" contenteditable='true'></td>
-            <td id="06" contenteditable='true'></td>
-            <td id="07" contenteditable='true'></td>
-            <td id="08" contenteditable='true'></td>
-            <td id="09" contenteditable='true'></td>
-        </tr>
-        <tr>
-            <td id="10" contenteditable='true'></td>
-            <td id="11" contenteditable='true'></td>
-            <td id="12" contenteditable='true'></td>
-            <td id="13" contenteditable='true'></td>
-            <td id="14" contenteditable='true'></td>
-            <td id="15" contenteditable='true'></td>
-            <td id="16" contenteditable='true'></td>
-            <td id="17" contenteditable='true'></td>
-            <td id="18" contenteditable='true'></td>
-            <td id="19" contenteditable='true'></td>
-        </tr>
-        <tr>
-            <td id="20" contenteditable='true'></td>
-            <td id="21" contenteditable='true'></td>
-            <td id="22" contenteditable='true'></td>
-            <td id="23" contenteditable='true'></td>
-            <td id="24" contenteditable='true'></td>
-            <td id="25" contenteditable='true'></td>
-            <td id="26" contenteditable='true'></td>
-            <td id="27" contenteditable='true'></td>
-            <td id="28" contenteditable='true'></td>
-            <td id="29" contenteditable='true'></td>
-        </tr>
-        <tr>
-            <td id="30" contenteditable='true'></td>
-            <td id="31" contenteditable='true'></td>
-            <td id="32" contenteditable='true'></td>
-            <td id="33" contenteditable='true'></td>
-            <td id="34" contenteditable='true'></td>
-            <td id="35" contenteditable='true'></td>
-            <td id="36" contenteditable='true'></td>
-            <td id="37" contenteditable='true'></td>
-            <td id="38" contenteditable='true'></td>
-            <td id="39" contenteditable='true'></td>
-        </tr>
-        <tr>
-            <td id="40" contenteditable='true'></td>
-            <td id="41" contenteditable='true'></td>
-            <td id="42" contenteditable='true'></td>
-            <td id="43" contenteditable='true'></td>
-            <td id="44" contenteditable='true'></td>
-            <td id="45" contenteditable='true'></td>
-            <td id="46" contenteditable='true'></td>
-            <td id="47" contenteditable='true'></td>
-            <td id="48" contenteditable='true'></td>
-            <td id="49" contenteditable='true'></td>
-        </tr>
-        <tr>
-            <td id="50" contenteditable='true'></td>
-            <td id="51" contenteditable='true'></td>
-            <td id="52" contenteditable='true'></td>
-            <td id="53" contenteditable='true'></td>
-            <td id="54" contenteditable='true'></td>
-            <td id="55" contenteditable='true'></td>
-            <td id="56" contenteditable='true'></td>
-            <td id="57" contenteditable='true'></td>
-            <td id="58" contenteditable='true'></td>
-            <td id="59" contenteditable='true'></td>
-        </tr>
-        <tr>
-            <td id="60" contenteditable='true'></td>
-            <td id="61" contenteditable='true'></td>
-            <td id="62" contenteditable='true'></td>
-            <td id="63" contenteditable='true'></td>
-            <td id="64" contenteditable='true'></td>
-            <td id="65" contenteditable='true'></td>
-            <td id="66" contenteditable='true'></td>
-            <td id="67" contenteditable='true'></td>
-            <td id="68" contenteditable='true'></td>
-            <td id="69" contenteditable='true'></td>
-        </tr>
-        <tr>
-            <td id="70" contenteditable='true'></td>
-            <td id="71" contenteditable='true'></td>
-            <td id="72" contenteditable='true'></td>
-            <td id="73" contenteditable='true'></td>
-            <td id="74" contenteditable='true'></td>
-            <td id="75" contenteditable='true'></td>
-            <td id="76" contenteditable='true'></td>
-            <td id="77" contenteditable='true'></td>
-            <td id="78" contenteditable='true'></td>
-            <td id="79" contenteditable='true'></td>
-        </tr>
-        <tr id="8r">
-            <td id="80" contenteditable='true'></td>
-            <td id="81" contenteditable='true'></td>
-            <td id="82" contenteditable='true'></td>
-            <td id="83" contenteditable='true'></td>
-            <td id="84" contenteditable='true'></td>
-            <td id="85" contenteditable='true'></td>
-            <td id="86" contenteditable='true'></td>
-            <td id="87" contenteditable='true'></td>
-            <td id="88" contenteditable='true'></td>
-            <td id="89" contenteditable='true'></td>
-        </tr>
-        <tr>
-            <td id="90" contenteditable='true'></td>
-            <td id="91" contenteditable='true'></td>
-            <td id="92" contenteditable='true'></td>
-            <td id="93" contenteditable='true'></td>
-            <td id="94" contenteditable='true'></td>
-            <td id="95" contenteditable='true'></td>
-            <td id="96" contenteditable='true'></td>
-            <td id="97" contenteditable='true'></td>
-            <td id="98" contenteditable='true'></td>
-            <td id="99" contenteditable='true'></td>
-        </tr>
-    </table>
-    <button onclick="startGame()">Start Game</button>
+    <div class="col-md-6">
+        <table id="grid">
+            <tr>
+                <td id="00" contenteditable='true' onclick="dotheneedful(this)" tabindex="-1"></td>
+                <td id="01" contenteditable='true' onclick="dotheneedful(this)" tabindex="-1"></td>
+                <td id="02" contenteditable='true' onclick="dotheneedful(this)" tabindex="-1"></td>
+                <td id="03" contenteditable='true' onclick="dotheneedful(this)" tabindex="-1"></td>
+                <td id="04" contenteditable='true' onclick="dotheneedful(this)" tabindex="-1"></td>
+                <td id="05" contenteditable='true' onclick="dotheneedful(this)" tabindex="-1"></td>
+                <td id="06" contenteditable='true' onclick="dotheneedful(this)" tabindex="-1"></td>
+                <td id="07" contenteditable='true' onclick="dotheneedful(this)" tabindex="-1"></td>
+                <td id="08" contenteditable='true' onclick="dotheneedful(this)" tabindex="-1"></td>
+                <td id="09" contenteditable='true' onclick="dotheneedful(this)" tabindex="-1"></td>
+            </tr>
+            <tr>
+                <td id="10" contenteditable='true' onclick="dotheneedful(this)" tabindex="-1"></td>
+                <td id="11" contenteditable='true' onclick="dotheneedful(this)" tabindex="-1"></td>
+                <td id="12" contenteditable='true' onclick="dotheneedful(this)" tabindex="-1"></td>
+                <td id="13" contenteditable='true' onclick="dotheneedful(this)" tabindex="-1"></td>
+                <td id="14" contenteditable='true' onclick="dotheneedful(this)" tabindex="-1"></td>
+                <td id="15" contenteditable='true' onclick="dotheneedful(this)" tabindex="-1"></td>
+                <td id="16" contenteditable='true' onclick="dotheneedful(this)" tabindex="-1"></td>
+                <td id="17" contenteditable='true' onclick="dotheneedful(this)" tabindex="-1"></td>
+                <td id="18" contenteditable='true' onclick="dotheneedful(this)" tabindex="-1"></td>
+                <td id="19" contenteditable='true' onclick="dotheneedful(this)" tabindex="-1"></td>
+            </tr>
+            <tr>
+                <td id="20" contenteditable='true' onclick="dotheneedful(this)" tabindex="-1"></td>
+                <td id="21" contenteditable='true' onclick="dotheneedful(this)" tabindex="-1"></td>
+                <td id="22" contenteditable='true' onclick="dotheneedful(this)" tabindex="-1"></td>
+                <td id="23" contenteditable='true' onclick="dotheneedful(this)" tabindex="-1"></td>
+                <td id="24" contenteditable='true' onclick="dotheneedful(this)" tabindex="-1"></td>
+                <td id="25" contenteditable='true' onclick="dotheneedful(this)" tabindex="-1"></td>
+                <td id="26" contenteditable='true' onclick="dotheneedful(this)" tabindex="-1"></td>
+                <td id="27" contenteditable='true' onclick="dotheneedful(this)" tabindex="-1"></td>
+                <td id="28" contenteditable='true' onclick="dotheneedful(this)" tabindex="-1"></td>
+                <td id="29" contenteditable='true' onclick="dotheneedful(this)" tabindex="-1"></td>
+            </tr>
+            <tr>
+                <td id="30" contenteditable='true' onclick="dotheneedful(this)" tabindex="-1"></td>
+                <td id="31" contenteditable='true' onclick="dotheneedful(this)" tabindex="-1"></td>
+                <td id="32" contenteditable='true' onclick="dotheneedful(this)" tabindex="-1"></td>
+                <td id="33" contenteditable='true' onclick="dotheneedful(this)" tabindex="-1"></td>
+                <td id="34" contenteditable='true' onclick="dotheneedful(this)" tabindex="-1"></td>
+                <td id="35" contenteditable='true' onclick="dotheneedful(this)" tabindex="-1"></td>
+                <td id="36" contenteditable='true' onclick="dotheneedful(this)" tabindex="-1"></td>
+                <td id="37" contenteditable='true' onclick="dotheneedful(this)" tabindex="-1"></td>
+                <td id="38" contenteditable='true' onclick="dotheneedful(this)" tabindex="-1"></td>
+                <td id="39" contenteditable='true' onclick="dotheneedful(this)" tabindex="-1"></td>
+            </tr>
+            <tr>
+                <td id="40" contenteditable='true' onclick="dotheneedful(this)" tabindex="-1"></td>
+                <td id="41" contenteditable='true' onclick="dotheneedful(this)" tabindex="-1"></td>
+                <td id="42" contenteditable='true' onclick="dotheneedful(this)" tabindex="-1"></td>
+                <td id="43" contenteditable='true' onclick="dotheneedful(this)" tabindex="-1"></td>
+                <td id="44" contenteditable='true' onclick="dotheneedful(this)" tabindex="-1"></td>
+                <td id="45" contenteditable='true' onclick="dotheneedful(this)" tabindex="-1"></td>
+                <td id="46" contenteditable='true' onclick="dotheneedful(this)" tabindex="-1"></td>
+                <td id="47" contenteditable='true' onclick="dotheneedful(this)" tabindex="-1"></td>
+                <td id="48" contenteditable='true' onclick="dotheneedful(this)" tabindex="-1"></td>
+                <td id="49" contenteditable='true' onclick="dotheneedful(this)" tabindex="-1"></td>
+            </tr>
+            <tr>
+                <td id="50" contenteditable='true' onclick="dotheneedful(this)" tabindex="-1"></td>
+                <td id="51" contenteditable='true' onclick="dotheneedful(this)" tabindex="-1"></td>
+                <td id="52" contenteditable='true' onclick="dotheneedful(this)" tabindex="-1"></td>
+                <td id="53" contenteditable='true' onclick="dotheneedful(this)" tabindex="-1"></td>
+                <td id="54" contenteditable='true' onclick="dotheneedful(this)" tabindex="-1"></td>
+                <td id="55" contenteditable='true' onclick="dotheneedful(this)" tabindex="-1"></td>
+                <td id="56" contenteditable='true' onclick="dotheneedful(this)" tabindex="-1"></td>
+                <td id="57" contenteditable='true' onclick="dotheneedful(this)" tabindex="-1"></td>
+                <td id="58" contenteditable='true' onclick="dotheneedful(this)" tabindex="-1"></td>
+                <td id="59" contenteditable='true' onclick="dotheneedful(this)" tabindex="-1"></td>
+            </tr>
+            <tr>
+                <td id="60" contenteditable='true' onclick="dotheneedful(this)" tabindex="-1"></td>
+                <td id="61" contenteditable='true' onclick="dotheneedful(this)" tabindex="-1"></td>
+                <td id="62" contenteditable='true' onclick="dotheneedful(this)" tabindex="-1"></td>
+                <td id="63" contenteditable='true' onclick="dotheneedful(this)" tabindex="-1"></td>
+                <td id="64" contenteditable='true' onclick="dotheneedful(this)" tabindex="-1"></td>
+                <td id="65" contenteditable='true' onclick="dotheneedful(this)" tabindex="-1"></td>
+                <td id="66" contenteditable='true' onclick="dotheneedful(this)" tabindex="-1"></td>
+                <td id="67" contenteditable='true' onclick="dotheneedful(this)" tabindex="-1"></td>
+                <td id="68" contenteditable='true' onclick="dotheneedful(this)" tabindex="-1"></td>
+                <td id="69" contenteditable='true' onclick="dotheneedful(this)" tabindex="-1"></td>
+            </tr>
+            <tr>
+                <td id="70" contenteditable='true' onclick="dotheneedful(this)" tabindex="-1"></td>
+                <td id="71" contenteditable='true' onclick="dotheneedful(this)" tabindex="-1"></td>
+                <td id="72" contenteditable='true' onclick="dotheneedful(this)" tabindex="-1"></td>
+                <td id="73" contenteditable='true' onclick="dotheneedful(this)" tabindex="-1"></td>
+                <td id="74" contenteditable='true' onclick="dotheneedful(this)" tabindex="-1"></td>
+                <td id="75" contenteditable='true' onclick="dotheneedful(this)" tabindex="-1"></td>
+                <td id="76" contenteditable='true' onclick="dotheneedful(this)" tabindex="-1"></td>
+                <td id="77" contenteditable='true' onclick="dotheneedful(this)" tabindex="-1"></td>
+                <td id="78" contenteditable='true' onclick="dotheneedful(this)" tabindex="-1"></td>
+                <td id="79" contenteditable='true' onclick="dotheneedful(this)" tabindex="-1"></td>
+            </tr>
+            <tr id="8r">
+                <td id="80" contenteditable='true' onclick="dotheneedful(this)" tabindex="-1"></td>
+                <td id="81" contenteditable='true' onclick="dotheneedful(this)" tabindex="-1"></td>
+                <td id="82" contenteditable='true' onclick="dotheneedful(this)" tabindex="-1"></td>
+                <td id="83" contenteditable='true' onclick="dotheneedful(this)" tabindex="-1"></td>
+                <td id="84" contenteditable='true' onclick="dotheneedful(this)" tabindex="-1"></td>
+                <td id="85" contenteditable='true' onclick="dotheneedful(this)" tabindex="-1"></td>
+                <td id="86" contenteditable='true' onclick="dotheneedful(this)" tabindex="-1"></td>
+                <td id="87" contenteditable='true' onclick="dotheneedful(this)" tabindex="-1"></td>
+                <td id="88" contenteditable='true' onclick="dotheneedful(this)" tabindex="-1"></td>
+                <td id="89" contenteditable='true' onclick="dotheneedful(this)" tabindex="-1"></td>
+            </tr>
+            <tr>
+                <td id="90" contenteditable='true' onclick="dotheneedful(this)" tabindex="-1"></td>
+                <td id="91" contenteditable='true' onclick="dotheneedful(this)" tabindex="-1"></td>
+                <td id="92" contenteditable='true' onclick="dotheneedful(this)" tabindex="-1"></td>
+                <td id="93" contenteditable='true' onclick="dotheneedful(this)" tabindex="-1"></td>
+                <td id="94" contenteditable='true' onclick="dotheneedful(this)" tabindex="-1"></td>
+                <td id="95" contenteditable='true' onclick="dotheneedful(this)" tabindex="-1"></td>
+                <td id="96" contenteditable='true' onclick="dotheneedful(this)" tabindex="-1"></td>
+                <td id="97" contenteditable='true' onclick="dotheneedful(this)" tabindex="-1"></td>
+                <td id="98" contenteditable='true' onclick="dotheneedful(this)" tabindex="-1"></td>
+                <td id="99" contenteditable='true' onclick="dotheneedful(this)" tabindex="-1"></td>
+            </tr>
+        </table>
+        <button onclick="startGame()">Start Game</button>
+        <button onclick="startRandGame()">Random Board</button>
+    </div>
+    <div id="right" class="col-md-6">
+        <div class="col-md-8">
+            <h1>Instructions:</h1>
+            <p>You have five ships: a Carrier (C), of length 5, a Battleship (B), of length 4, a Destroyer (D), of length 3,
+                a Submarine (S), of length 3, and a Gunboat (G), of length 2. Place all five ships within the grid denoted
+                by the uppercase first letter of each ship name. No ships may overlap. Ships <b>are</b> allowed to be touching.
+
+            </p>
+            <p>
+                The "Random Board" feature isn't implemented yet- right now, it'll start the game with a specific board setup I used for
+                testing.
+            </p>
+        </div>
+
+    </div>
+
+    <script src="js/arrow_nav.js"></script>
+
     <script src="js/AI.js"></script>
 
     <!-- <script src="js/bootstrap.min.js"></script> -->
