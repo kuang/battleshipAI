@@ -24,7 +24,7 @@ if (highlight) {
 
 function checkKey(e) {
     e = e || window.event;
-    if (e.keyCode == '38') {
+    if (e.keyCode == '38' && start.id[0] != "0") {
         // up arrow
         var idx = start.cellIndex;
         var nextrow = start.parentElement.previousElementSibling;
@@ -40,7 +40,7 @@ function checkKey(e) {
             var sibling = nextrow.cells[idx];
             dotheneedful(sibling);
         }
-    } else if (e.keyCode == '37') {
+    } else if (e.keyCode == '37' && start.id[1] != "0") {
         // left arrow
         var sibling = start.previousElementSibling;
         dotheneedful(sibling);
