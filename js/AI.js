@@ -423,15 +423,12 @@ function callback(a) {
   if (temp != -1) { //updateVars() returns the length of sunk ship if one is sunk, -1 if none are sunk
     var sunk_coords = findUniqueSunkShip(coord[0], coord[1], temp);
     if (sunk_coords.length != 0) { //findUniqueSunkShip returns list of coordinates of ship if only unique one exists, empty list otherwise
-      // console.log("sunk ship coords of length" + temp + " are " + sunk_coords);
       devalueSunkShip(sunk_coords);
     }
   }
 
   updateUI(shipGrid);
   updateProbs();
-  // printBoard(shipGrid);
-  // printBoard(probs);
 }
 
 function startRandGame() {
