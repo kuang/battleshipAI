@@ -159,20 +159,34 @@ function printBoard(board) {
 
 //updates HTML UI
 function updateUI(board) {
-  var table = document.getElementById("grid");
-  var r = 0;
-  while ((row = table.rows[r++])) {
-    var c = 0;
-    while ((cell = row.cells[c++])) {
-      if (board[r - 1][c - 1] === "+") {
+  for (var r = 0; r < board_len; r++) {
+    for (var c = 0; c < board_len; c++) {
+      var identity = "" + r + c;
+      var cell = document.getElementById(identity);
+      if (board[r][c] === "+") {
         cell.innerHTML = " ";
-      } else if (board[r - 1][c - 1] === "I") {
+      } else if (board[r][c] === "I") {
         cell.innerHTML = "X";
       } else {
-        cell.innerHTML = board[r - 1][c - 1];
+        cell.innerHTML = board[r][c];
       }
     }
   }
+
+  // var table = document.getElementById("grid");
+  // var r = 0;
+  // while ((row = table.rows[r++])) {
+  //   var c = 0;
+  //   while ((cell = row.cells[c++])) {
+  //     if (board[r - 1][c - 1] === "+") {
+  //       cell.innerHTML = " ";
+  //     } else if (board[r - 1][c - 1] === "I") {
+  //       cell.innerHTML = "X";
+  //     } else {
+  //       cell.innerHTML = board[r - 1][c - 1];
+  //     }
+  //   }
+  // }
 }
 
 // creates sample board for testing

@@ -1,6 +1,8 @@
-grid {
-  /*float: left;*/
+#left {
+  margin: 10px;
 }
+
+#right {}
 
 th,
 td {
@@ -8,8 +10,8 @@ td {
 }
 
 table {
-  width: 500px;
-  height: 500px;
+  width: 550px;
+  height: 550px;
 }
 
 td {
