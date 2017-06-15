@@ -28,6 +28,29 @@ var destroyer = true; //D
 var submarine = true; //S
 var gunboat = true; //G
 
+//assigns shipGrid from user input
+function setGrid() {
+  for (var i = 0; i < board_len; i++) {
+    for (var j = 0; j < board_len; j++) {
+      var identity = "" + i + j;
+      console.log(identity);
+      var input = document.getElementById(identity).innerHTML;
+      console.log(input);
+      console.log("i is " + i);
+      console.log("j is " + j);
+      console.log(shipGrid[i][j]);
+      if (input == "") {
+        console.log("error 1");
+        shipGrid[i][j] = "+";
+      } else {
+        console.log("error 2");
+        shipGrid[i][j] = input;
+      }
+    }
+  }
+
+}
+
 //returns range to consider for possible ships
 function updateNum() {
   var check_num = 5;
@@ -366,10 +389,7 @@ function rangeFinder(maxnum, x) {
   return [left, right];
 }
 
-setSampleBoard();
 // setPieceVert("C", 8, 4, 2);
-
-updateProbs();
 // updateHit(4, 6);
 // updateHit(8, 3);
 // updateHit(8, 4);
@@ -414,11 +434,16 @@ function callback(a) {
   // printBoard(probs);
 }
 
-var id = setInterval(function () {
-  if (carrier || battleship || destroyer || submarine || gunboat) {
-    callback(shipGrid);
-  } else {
-    clearInterval(id);
-    // console.log(findUniqueSunkShip(3, 6, 2));
-  }
-}, 200);
+function startGame() {
+  // setSampleBoard();
+
+  setGrid();
+  updateProbs();
+  var id = setInterval(function () {
+    if (carrier || battleship || destroyer || submarine || gunboat) {
+      callback(shipGrid);
+    } else {
+      clearInterval(id);
+    }
+  }, 200);
+}
