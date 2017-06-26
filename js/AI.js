@@ -462,7 +462,7 @@ function startRandGame() {
     } else {
       clearInterval(id);
     }
-  }, 200);
+  }, 250);
 }
 
 function startGame() {
@@ -477,7 +477,7 @@ function startGame() {
     } else {
       clearInterval(id);
     }
-  }, 200);
+  }, 250);
 }
 
 /* resets the board */
@@ -516,7 +516,34 @@ function reset() {
   letter is string, one of "B", "C", "D", 'G', "S"
 */
 function generateShip(length, letter) {
-  //TODO
+  //x and y will be 0-9
+   var x = Math.floor(Math.random() * 10);
+   var y = Math.floor(Math.random() * 10);
+   var direction = Math.floor(Math.random() * 2); //0= horizontal, 1=vertical
+   var obstructed = checkObstructions(x, y, length, direction); 
+
+   while ((x > 10-length && 10 > 9-length) || obstructed == true){
+      x = Math.floor(Math.random() * 10);
+      y = Math.floor(Math.random() * 10);
+      direction = Math.floor(Math.random() * 2);
+      obstructed = checkObstructions(x, y, length, direction);
+   }
+
+   if (direction  == 0){
+      for (var i = 0; i<length; i++){
+        var identity = "" + (x+i) + y;
+        var cell = document.getElementById(identity);
+        cell.innerHTML = letter;
+      }
+   } else {
+      for (var i = 0; i<length; i++){
+        var identity = "" + x + (y+i);
+        var cell = document.getElementById(identity);
+        cell.innerHTML = letter;
+      }
+   }
+
+
 }
 
 /*
@@ -524,9 +551,26 @@ function generateShip(length, letter) {
   x, y, are ints between 0 and 10
   length is int between 2 and 5
   direction is int, 0 = horizontal, 1 = vertical
+  returns a boolean, true if obstructed, false if not
+
 */
 function checkObstructions(x, y, length, direction) {
-  //TODO
+//null case is for initialization of the obstruction variable inside generateship
+   if (direction  == 0){
+      for (var i = 0; i<length; i++){
+        var identity = "" + (x+i) + y;
+        var cell = document.getElementById(identity);
+        if (cell == null || cell.innerHTML != "") return true;
+      }
+   } else {
+      for (var i = 0; i<length; i++){
+        var identity = "" + x + (y+i);
+        var cell = document.getElementById(identity);
+        if (cell == null || cell.innerHTML != "") return true;
+      }
+   }
+
+   return false;
 }
 
 /* generates random ship arrangement */
