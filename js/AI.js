@@ -18,6 +18,8 @@ function matrix(rows, cols, defaultValue) {
 
   return arr;
 }
+
+//global variables
 var board_len = 10;
 var shipGrid = matrix(board_len, board_len, "+");
 var probs = matrix(board_len, board_len, 0);
@@ -158,7 +160,7 @@ function printBoard(board) {
 }
 
 //updates HTML UI
-function updateUI(board) {
+function updateUI(board, counter) {
   for (var r = 0; r < board_len; r++) {
     for (var c = 0; c < board_len; c++) {
       var identity = "" + r + c;
@@ -172,6 +174,9 @@ function updateUI(board) {
       }
     }
   }
+
+  var displayTurns = document.getElementById("turncounter");
+  displayTurns.innerHTML = "Turns Taken: "+counter.toString();
 
   // var table = document.getElementById("grid");
   // var r = 0;
@@ -427,7 +432,7 @@ function rangeFinder(maxnum, x) {
 
 // console.log(selectAttack());
 
-function callback(a) {
+function callback(a, counter) {
   var coord = selectAttack();
   console.log(coord);
   console.log(probs[7][8]);
@@ -441,7 +446,7 @@ function callback(a) {
     }
   }
 
-  updateUI(shipGrid);
+  updateUI(shipGrid, counter);
   updateProbs();
 }
 
@@ -449,9 +454,11 @@ function startRandGame() {
   deSelect();
   setSampleBoard();
   updateProbs();
+  var counter = 0;
   var id = setInterval(function () {
     if (carrier || battleship || destroyer || submarine || gunboat) {
-      callback(shipGrid);
+      callback(shipGrid, counter);
+      counter +=1;
     } else {
       clearInterval(id);
     }
@@ -462,11 +469,68 @@ function startGame() {
   deSelect();
   setGrid();
   updateProbs();
+  var counter = 0;
   var id = setInterval(function () {
     if (carrier || battleship || destroyer || submarine || gunboat) {
-      callback(shipGrid);
+      callback(shipGrid, counter);
+      counter+=1;
     } else {
       clearInterval(id);
     }
   }, 200);
 }
+
+/* resets the board */
+function clearUI(){
+  for (var r = 0; r < board_len; r++) {
+    for (var c = 0; c < board_len; c++) {
+      var identity = "" + r + c;
+      var cell = document.getElementById(identity);
+      cell.innerHTML = "";
+    }
+  }
+
+  var displayTurns = document.getElementById("turncounter");
+  displayTurns.innerHTML = "Turns Taken: 0";
+}
+
+/* resets the AI */
+function reset(){
+  resetSelect();
+  //reset global variables
+  shipGrid = matrix(board_len, board_len, "+");
+  probs = matrix(board_len, board_len, 0);
+  carrier = true; //C
+  battleship = true; //B
+  destroyer = true; //D
+  submarine = true; //S
+  gunboat = true; //G
+
+  //clear grid
+  clearUI();
+}
+
+/*
+  generate ship of specified length with the specified letter designation
+  length is int between 2 and 5
+  letter is string, one of "B", "C", "D", 'G', "S"
+*/
+function generateShip(length, letter){
+//TODO
+}
+
+/*
+  check for obstructions for ship placement at current coordinate
+  x, y, are ints between 0 and 10
+  length is int between 2 and 5
+  direction is int, 0 = horizontal, 1 = vertical
+*/
+function checkObstructions(x, y, length, direction){
+//TODO
+}
+
+/* generates random ship arrangement */
+function randomPlacement(){
+//TODO
+}
+

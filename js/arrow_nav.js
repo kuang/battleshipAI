@@ -60,3 +60,13 @@ function deSelect() {
     for (var i = 0; i < editable_elements.length; i++)
         editable_elements[i].setAttribute("contenteditable", false);
 }
+
+function resetSelect() {
+    highlight = true;
+    start.focus();
+    start.style.backgroundColor = 'blue';
+    start.style.color = 'white';
+    var non_editable_elements = document.querySelectorAll("[contenteditable=false]");
+    for (var i = 0; i < non_editable_elements.length; i++)
+        non_editable_elements[i].setAttribute("contenteditable", true);
+}
