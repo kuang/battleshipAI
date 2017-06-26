@@ -531,6 +531,11 @@ function checkObstructions(x, y, length, direction){
 
 /* generates random ship arrangement */
 function randomPlacement(){
-//TODO
+  reset();
+  generateShip(5,"C");
+  generateShip(4,"B");
+  generateShip(3,"D");
+  generateShip(3,"S");
+  generateShip(2,"G");
 }
 
