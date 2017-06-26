@@ -35,18 +35,18 @@ function setGrid() {
   for (var i = 0; i < board_len; i++) {
     for (var j = 0; j < board_len; j++) {
       var identity = "" + i + j;
-      console.log(identity);
+      // console.log(identity);
       var input = document.getElementById(identity).innerHTML;
-      console.log(input);
-      console.log("i is " + i);
-      console.log("j is " + j);
-      console.log(shipGrid[i][j]);
+      // console.log(input);
+      // console.log("i is " + i);
+      // console.log("j is " + j);
+      // console.log(shipGrid[i][j]);
       if (input == "") {
-        console.log("error 1");
+        // console.log("error 1");
         shipGrid[i][j] = "+";
       } else {
-        console.log("error 2");
-        shipGrid[i][j] = input;
+        // console.log("error 2");
+        shipGrid[i][j] = input.toUpperCase();
       }
     }
   }
@@ -176,7 +176,7 @@ function updateUI(board, counter) {
   }
 
   var displayTurns = document.getElementById("turncounter");
-  displayTurns.innerHTML = "Turns Taken: "+counter.toString();
+  displayTurns.innerHTML = "Turns Taken: " + counter.toString();
 
   // var table = document.getElementById("grid");
   // var r = 0;
@@ -458,7 +458,7 @@ function startRandGame() {
   var id = setInterval(function () {
     if (carrier || battleship || destroyer || submarine || gunboat) {
       callback(shipGrid, counter);
-      counter +=1;
+      counter += 1;
     } else {
       clearInterval(id);
     }
@@ -473,7 +473,7 @@ function startGame() {
   var id = setInterval(function () {
     if (carrier || battleship || destroyer || submarine || gunboat) {
       callback(shipGrid, counter);
-      counter+=1;
+      counter += 1;
     } else {
       clearInterval(id);
     }
@@ -481,7 +481,7 @@ function startGame() {
 }
 
 /* resets the board */
-function clearUI(){
+function clearUI() {
   for (var r = 0; r < board_len; r++) {
     for (var c = 0; c < board_len; c++) {
       var identity = "" + r + c;
@@ -495,7 +495,7 @@ function clearUI(){
 }
 
 /* resets the AI */
-function reset(){
+function reset() {
   resetSelect();
   //reset global variables
   shipGrid = matrix(board_len, board_len, "+");
@@ -515,8 +515,8 @@ function reset(){
   length is int between 2 and 5
   letter is string, one of "B", "C", "D", 'G', "S"
 */
-function generateShip(length, letter){
-//TODO
+function generateShip(length, letter) {
+  //TODO
 }
 
 /*
@@ -525,12 +525,11 @@ function generateShip(length, letter){
   length is int between 2 and 5
   direction is int, 0 = horizontal, 1 = vertical
 */
-function checkObstructions(x, y, length, direction){
-//TODO
+function checkObstructions(x, y, length, direction) {
+  //TODO
 }
 
 /* generates random ship arrangement */
-function randomPlacement(){
-//TODO
+function randomPlacement() {
+  //TODO
 }
-
