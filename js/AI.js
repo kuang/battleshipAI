@@ -458,40 +458,38 @@ function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 /*starts a set of some number of trials and outputs average hits across all trials*/
-async function startTrials(){
-  var numTrials = parseInt(document.getElementById('numtrials').value);
-  if (isNaN(numTrials)){
-    document.getElementById('trialsresult').innerHTML = "Error. Please input a valid number.";
-  } else {
-    console.log('Starting '+(numTrials)+' Random Trials');
-    document.getElementById('trialsresult').innerHTML = "";
-    var trialResults = 0;
-    for (var i=0; i<numTrials; i++){
-      var trial = new Promise((resolve, reject) => {
-        counter = 0;
-        console.log("Trial "+(i+1));
-        randomPlacement();
-        deSelect();
-        setGrid();
-        updateProbs();
-        var id = setInterval(function () {
-          if (carrier || battleship || destroyer || submarine || gunboat) {
-            callback(shipGrid, counter);
-            counter += 1;
-          } else {    
-            clearInterval(id);
-          }
-        }, 5);
-        return counter;        
-      }).then((counter)=>{
-        trialResults+=counter;
-        console.log((counter)+" hits"); 
-      });
-      await sleep(500);
-    }
-    document.getElementById('trialsresult').innerHTML = "Average Number of Hits: "+(trialResults/numTrials);    
-  }
-}
+// async function startTrials(){
+//   var numTrials = parseInt(document.getElementById('numtrials').value);
+//   if (isNaN(numTrials)){
+//     document.getElementById('trialsresult').innerHTML = "Error. Please input a valid number.";
+//   } else {
+//     console.log('Starting '+(numTrials)+' Random Trials');
+//     document.getElementById('trialsresult').innerHTML = "";
+//     var trialResults = 0;
+
+//     for (var i=0; i<numTrials; i++){
+//         counter = 0;
+//         console.log("Trial "+(i+1));
+//         randomPlacement();
+//         deSelect();
+//         setGrid();
+//         updateProbs();
+//         var id = setInterval(function () {
+//           if (carrier || battleship || destroyer || submarine || gunboat) {
+//             callback(shipGrid, counter);
+//             counter += 1;
+//             console.log(counter);
+//           } else {    
+//             clearInterval(id);
+//           }
+//         }, 5);
+//         sleep(500);
+//         trialResults+=counter;
+//         console.log((counter)+" hits");
+//     }
+//     document.getElementById('trialsresult').innerHTML = "Average Number of Hits: "+(trialResults/numTrials);    
+//   }
+// }
 
 
 
