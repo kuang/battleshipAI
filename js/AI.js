@@ -274,14 +274,14 @@ function updateCoordProb(x, y) {
 /* returns coordinates of unique sunk ship if only one possible sunk ship configuration is possible, false otherwise.
  * param: x,y coordinates, length of sunk ship
  */
-function findUniqueSunkShip(x, y, search_length) {
+function findUniqueSunkShip(shipGrid, x, y, search_length) {
   var counter = 0; //number of possible configurations. must == 1 to return true.
   var output = [];
   var h_domain = rangeFinder(search_length, x);
   var y_range = rangeFinder(search_length, y);
   console.log(h_domain);
   if (x - h_domain[0] + 1 === search_length) {
-    console.log("possible above");
+    // console.log("possible above");
     //if ship existance is possible
     var num_hits = [];
     for (var i = h_domain[0]; i <= x; i++) {
@@ -295,7 +295,7 @@ function findUniqueSunkShip(x, y, search_length) {
     }
   }
   if (h_domain[1] - x + 1 === search_length) {
-    console.log("possible below");
+    // console.log("possible below");
     //if ship existance is possible
     var num_hits = [];
     for (var i = x; i <= h_domain[1]; i++) {
@@ -303,8 +303,8 @@ function findUniqueSunkShip(x, y, search_length) {
         num_hits.push([i, y]);
       }
     }
-    console.log("second param, counter is " + counter);
-    console.log("num_hits is " + num_hits);
+    // console.log("second param, counter is " + counter);
+    // console.log("num_hits is " + num_hits);
     if (num_hits.length == search_length) {
       if (counter > 0) {
         return [];
@@ -314,7 +314,7 @@ function findUniqueSunkShip(x, y, search_length) {
     }
   }
   if (y - y_range[0] + 1 === search_length) {
-    console.log("possible left");
+    // console.log("possible left");
     //if ship existance is possible
     var num_hits = [];
     for (var i = y_range[0]; i <= y; i++) {
@@ -331,7 +331,7 @@ function findUniqueSunkShip(x, y, search_length) {
     }
   }
   if (y_range[1] - y + 1 === search_length) {
-    console.log("possible right");
+    // console.log("possible right");
     //if ship existance is possible
     var num_hits = [];
     for (var i = y; i <= y_range[1]; i++) {
@@ -347,7 +347,7 @@ function findUniqueSunkShip(x, y, search_length) {
       output.push(num_hits);
     }
   }
-  console.log(counter);
+  // console.log(counter);
   if (counter === 1) {
     return output[0];
   }
@@ -357,7 +357,7 @@ function findUniqueSunkShip(x, y, search_length) {
 /*
  * Given a list of coordinates, turn those coordinates from "X" to "I" (for ignore) on shipGrid.
  */
-function devalueSunkShip(coords) {
+function devalueSunkShip(shipGrid, coords) {
   console.log("coords is " + coords);
 
   for (var i = 0; i < coords.length; i++) {
@@ -370,7 +370,7 @@ function devalueSunkShip(coords) {
 hit numclose away = 1/numclose points
 hit numclose-1 away = 1/numclose-1 points, etc
 */
-function checkNeighbors(x, y) {
+function checkNeighbors(shipGrid, x, y) {
   var numclose = updateNum(); //range to consider, 2-5
   var output = 0;
   var isImmediateNeighbor = false;
@@ -432,11 +432,10 @@ function rangeFinder(maxnum, x) {
 
 // console.log(selectAttack());
 
-function callback(a, counter) {
-  var coord = selectAttack();
-  console.log(coord);
-  console.log(probs[7][8]);
 
+//headless = boolean, true if headless run
+function callback(shipGrid, a, counter, headless) {
+  var coord = selectAttack();
   updateHit(coord[0], coord[1]);
   var temp = updateVars();
   if (temp != -1) { //updateVars() returns the length of sunk ship if one is sunk, -1 if none are sunk
@@ -445,24 +444,44 @@ function callback(a, counter) {
       devalueSunkShip(sunk_coords);
     }
   }
-
-  updateUI(shipGrid, counter);
+  if (headless) {
+    updateUI(shipGrid, counter);
+  }
   updateProbs();
 }
 
-function startRandGame() {
+
+
+function startRandGame(shipGrid) {
   deSelect();
   setSampleBoard();
   updateProbs();
   var counter = 0;
   var id = setInterval(function () {
     if (carrier || battleship || destroyer || submarine || gunboat) {
-      callback(shipGrid, counter);
+      callback(shipGrid, counter, false);
       counter += 1;
     } else {
       clearInterval(id);
+
     }
   }, 250);
+}
+
+function startHeadLessRandGame(shipGrid) {
+  randomPlacement();
+  updateProbs();
+  var counter = 0;
+  var id = setInterval(function () {
+    if (carrier || battleship || destroyer || submarine || gunboat) {
+      callback(shipGrid, counter, true);
+      counter += 1;
+    } else {
+      clearInterval(id);
+
+    }
+  }, 250);
+
 }
 
 function startGame() {
@@ -517,31 +536,31 @@ function reset() {
 */
 function generateShip(length, letter) {
   //x and y will be 0-9
-   var x = Math.floor(Math.random() * 10);
-   var y = Math.floor(Math.random() * 10);
-   var direction = Math.floor(Math.random() * 2); //0= horizontal, 1=vertical
-   var obstructed = checkObstructions(x, y, length, direction); 
+  var x = Math.floor(Math.random() * 10);
+  var y = Math.floor(Math.random() * 10);
+  var direction = Math.floor(Math.random() * 2); //0= horizontal, 1=vertical
+  var obstructed = checkObstructions(x, y, length, direction);
 
-   while ((x > 10-length && 10 > 9-length) || obstructed == true){
-      x = Math.floor(Math.random() * 10);
-      y = Math.floor(Math.random() * 10);
-      direction = Math.floor(Math.random() * 2);
-      obstructed = checkObstructions(x, y, length, direction);
-   }
+  while ((x > 10 - length && 10 > 9 - length) || obstructed == true) {
+    x = Math.floor(Math.random() * 10);
+    y = Math.floor(Math.random() * 10);
+    direction = Math.floor(Math.random() * 2);
+    obstructed = checkObstructions(x, y, length, direction);
+  }
 
-   if (direction  == 0){
-      for (var i = 0; i<length; i++){
-        var identity = "" + (x+i) + y;
-        var cell = document.getElementById(identity);
-        cell.innerHTML = letter;
-      }
-   } else {
-      for (var i = 0; i<length; i++){
-        var identity = "" + x + (y+i);
-        var cell = document.getElementById(identity);
-        cell.innerHTML = letter;
-      }
-   }
+  if (direction == 0) {
+    for (var i = 0; i < length; i++) {
+      var identity = "" + (x + i) + y;
+      var cell = document.getElementById(identity);
+      cell.innerHTML = letter;
+    }
+  } else {
+    for (var i = 0; i < length; i++) {
+      var identity = "" + x + (y + i);
+      var cell = document.getElementById(identity);
+      cell.innerHTML = letter;
+    }
+  }
 
 
 }
@@ -555,31 +574,30 @@ function generateShip(length, letter) {
 
 */
 function checkObstructions(x, y, length, direction) {
-//null case is for initialization of the obstruction variable inside generateship
-   if (direction  == 0){
-      for (var i = 0; i<length; i++){
-        var identity = "" + (x+i) + y;
-        var cell = document.getElementById(identity);
-        if (cell == null || cell.innerHTML != "") return true;
-      }
-   } else {
-      for (var i = 0; i<length; i++){
-        var identity = "" + x + (y+i);
-        var cell = document.getElementById(identity);
-        if (cell == null || cell.innerHTML != "") return true;
-      }
-   }
+  //null case is for initialization of the obstruction variable inside generateship
+  if (direction == 0) {
+    for (var i = 0; i < length; i++) {
+      var identity = "" + (x + i) + y;
+      var cell = document.getElementById(identity);
+      if (cell == null || cell.innerHTML != "") return true;
+    }
+  } else {
+    for (var i = 0; i < length; i++) {
+      var identity = "" + x + (y + i);
+      var cell = document.getElementById(identity);
+      if (cell == null || cell.innerHTML != "") return true;
+    }
+  }
 
-   return false;
+  return false;
 }
 
 /* generates random ship arrangement */
-function randomPlacement(){
+function randomPlacement() {
   reset();
-  generateShip(5,"C");
-  generateShip(4,"B");
-  generateShip(3,"D");
-  generateShip(3,"S");
-  generateShip(2,"G");
+  generateShip(5, "C");
+  generateShip(4, "B");
+  generateShip(3, "D");
+  generateShip(3, "S");
+  generateShip(2, "G");
 }
-
