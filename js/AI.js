@@ -35,17 +35,10 @@ function setGrid() {
   for (var i = 0; i < board_len; i++) {
     for (var j = 0; j < board_len; j++) {
       var identity = "" + i + j;
-      // console.log(identity);
       var input = document.getElementById(identity).innerHTML;
-      // console.log(input);
-      // console.log("i is " + i);
-      // console.log("j is " + j);
-      // console.log(shipGrid[i][j]);
       if (input == "") {
-        // console.log("error 1");
         shipGrid[i][j] = "+";
       } else {
-        // console.log("error 2");
         shipGrid[i][j] = input.toUpperCase();
       }
     }
@@ -100,11 +93,11 @@ function updateVars() {
   }
   if (carrier && !tcarrier) {
     carrier = false;
-    // console.log("carrier sunk");
+    //console.log("carrier sunk");
     return 5;
   } else if (battleship && !tbattleship) {
     battleship = false;
-    // console.log("battleship sunk");
+    //console.log("battleship sunk");
     return 4;
   } else if (destroyer && !tdestroyer) {
     destroyer = false;
@@ -142,7 +135,7 @@ function printBoard(board) {
       firstline += j + "     ";
     }
   }
-  console.log(firstline);
+  //console.log(firstline);
   for (var i = 0; i < board.length; i++) {
     k = i;
     if (k < 10) {
@@ -156,7 +149,7 @@ function printBoard(board) {
     }
     output += "\n";
   }
-  console.log(output);
+  //console.log(output);
 }
 
 //updates HTML UI
@@ -281,7 +274,7 @@ function findUniqueSunkShip(x, y, search_length) {
   var y_range = rangeFinder(search_length, y);
   console.log(h_domain);
   if (x - h_domain[0] + 1 === search_length) {
-    console.log("possible above");
+    //console.log("possible above");
     //if ship existance is possible
     var num_hits = [];
     for (var i = h_domain[0]; i <= x; i++) {
@@ -295,7 +288,7 @@ function findUniqueSunkShip(x, y, search_length) {
     }
   }
   if (h_domain[1] - x + 1 === search_length) {
-    console.log("possible below");
+    //console.log("possible below");
     //if ship existance is possible
     var num_hits = [];
     for (var i = x; i <= h_domain[1]; i++) {
@@ -303,8 +296,8 @@ function findUniqueSunkShip(x, y, search_length) {
         num_hits.push([i, y]);
       }
     }
-    console.log("second param, counter is " + counter);
-    console.log("num_hits is " + num_hits);
+    //console.log("second param, counter is " + counter);
+    //console.log("num_hits is " + num_hits);
     if (num_hits.length == search_length) {
       if (counter > 0) {
         return [];
@@ -314,7 +307,7 @@ function findUniqueSunkShip(x, y, search_length) {
     }
   }
   if (y - y_range[0] + 1 === search_length) {
-    console.log("possible left");
+    //console.log("possible left");
     //if ship existance is possible
     var num_hits = [];
     for (var i = y_range[0]; i <= y; i++) {
@@ -331,7 +324,7 @@ function findUniqueSunkShip(x, y, search_length) {
     }
   }
   if (y_range[1] - y + 1 === search_length) {
-    console.log("possible right");
+    //console.log("possible right");
     //if ship existance is possible
     var num_hits = [];
     for (var i = y; i <= y_range[1]; i++) {
@@ -347,7 +340,7 @@ function findUniqueSunkShip(x, y, search_length) {
       output.push(num_hits);
     }
   }
-  console.log(counter);
+  //console.log(counter);
   if (counter === 1) {
     return output[0];
   }
@@ -358,10 +351,10 @@ function findUniqueSunkShip(x, y, search_length) {
  * Given a list of coordinates, turn those coordinates from "X" to "I" (for ignore) on shipGrid.
  */
 function devalueSunkShip(coords) {
-  console.log("coords is " + coords);
+  //console.log("coords is " + coords);
 
   for (var i = 0; i < coords.length; i++) {
-    console.log(coords[i][0]);
+    //console.log(coords[i][0]);
     shipGrid[coords[i][0]][coords[i][1]] = "I";
   }
 }
@@ -408,34 +401,10 @@ function rangeFinder(maxnum, x) {
   return [left, right];
 }
 
-// setPieceVert("C", 8, 4, 2);
-// updateHit(4, 6);
-// updateHit(8, 3);
-// updateHit(8, 4);
-// updateHit(8, 5);
-// updateHit(8, 6);
-// updateHit(4, 2);
-// updateHit(3, 2);
-// updateHit(2, 2);
-// updateHit(1, 2);
-// updateHit(5, 2);
-// updateHit(6, 2);
-// updateHit(7, 2);
-// updateHit(0, 2);
-//
-// updateHit(7, 9);
-// console.log(findUniqueSunkShip(4, 2, 5));
-// printBoard(shipGrid);
-// updateUI(shipGrid);
-// console.log(checkNeighbors(9, 9));
-// console.log(checkNeighbors(4, 5));
-
-// console.log(selectAttack());
-
 function callback(a, counter) {
   var coord = selectAttack();
-  console.log(coord);
-  console.log(probs[7][8]);
+  //console.log(coord);
+  //console.log(probs[7][8]);
 
   updateHit(coord[0], coord[1]);
   var temp = updateVars();
@@ -450,7 +419,9 @@ function callback(a, counter) {
   updateProbs();
 }
 
-function startRandGame() {
+//starts a game with a preset sample board
+function startSampleGame() {
+  document.getElementById('trialsresult').innerHTML = "";
   deSelect();
   setSampleBoard();
   updateProbs();
@@ -465,7 +436,9 @@ function startRandGame() {
   }, 250);
 }
 
+//starts a game with whatever board is on the grid at the time
 function startGame() {
+  document.getElementById('trialsresult').innerHTML = "";
   deSelect();
   setGrid();
   updateProbs();
@@ -478,6 +451,53 @@ function startGame() {
       clearInterval(id);
     }
   }, 250);
+}
+
+
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+/*starts a set of some number of trials and outputs average hits across all trials*/
+async function startTrials(){
+  var numTrials = parseInt(document.getElementById('numtrials').value);
+  if (isNaN(numTrials)){
+    document.getElementById('trialsresult').innerHTML = "Error. Please input a valid number.";
+  } else {
+    console.log('Starting '+(numTrials)+' Random Trials');
+    document.getElementById('trialsresult').innerHTML = "";
+    var trialResults = 0;
+    for (var i=0; i<numTrials; i++){
+      var trial = new Promise((resolve, reject) => {
+        counter = 0;
+        console.log("Trial "+(i+1));
+        randomPlacement();
+        deSelect();
+        setGrid();
+        updateProbs();
+        var id = setInterval(function () {
+          if (carrier || battleship || destroyer || submarine || gunboat) {
+            callback(shipGrid, counter);
+            counter += 1;
+          } else {    
+            clearInterval(id);
+          }
+        }, 5);
+        return counter;        
+      }).then((counter)=>{
+        trialResults+=counter;
+        console.log((counter)+" hits"); 
+      });
+      await sleep(500);
+    }
+    document.getElementById('trialsresult').innerHTML = "Average Number of Hits: "+(trialResults/numTrials);    
+  }
+}
+
+
+
+/*validates player created board*/
+function validate(){
+  //TODO
 }
 
 /* resets the board */
